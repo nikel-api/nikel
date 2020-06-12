@@ -1,2 +1,2 @@
-# nikei
-Nikei API
+# nikel
+Nikel API
