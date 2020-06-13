@@ -1,0 +1,69 @@
+package main
+
+import (
+	"encoding/json"
+	"gopkg.in/guregu/null.v4"
+	"io/ioutil"
+	"os"
+	"sort"
+)
+
+type Course struct {
+	ID                         null.String `json:"id"`
+	Code                       null.String `json:"code"`
+	Name                       null.String `json:"name"`
+	Description                null.String `json:"description"`
+	Division                   null.String `json:"division"`
+	Department                 null.String `json:"department"`
+	Prerequisites              null.String `json:"prerequisites"`
+	Corequisites               null.String `json:"corequisites"`
+	Exclusions                 null.String `json:"exclusions"`
+	RecommendedPreparation     null.String `json:"recommended_preparation"`
+	Level                      null.String `json:"level"`
+	Campus                     null.String `json:"campus"`
+	Term                       null.String `json:"term"`
+	ArtsAndScienceBreadth      null.String `json:"arts_and_science_breadth"`
+	ArtsAndScienceDistribution null.String `json:"arts_and_science_distribution"`
+	UtmDistribution            null.String `json:"utm_distribution"`
+	UtscBreadth                null.String `json:"utsc_breadth"`
+	ApscElectives              null.String `json:"apsc_electives"`
+	MeetingSections            []struct {
+		Code        null.String   `json:"code"`
+		Instructors []null.String `json:"instructors"`
+		Times       []struct {
+			Day      null.String `json:"day"`
+			Start    null.Int    `json:"start"`
+			End      null.Int    `json:"end"`
+			Duration null.Int    `json:"duration"`
+			Location null.String `json:"location"`
+		} `json:"times"`
+		Size           null.Int    `json:"size"`
+		Enrollment     null.Int    `json:"enrollment"`
+		WaitlistOption null.Bool   `json:"waitlist_option"`
+		Delivery       null.String `json:"delivery"`
+	} `json:"meeting_sections"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
+var coursesMap map[string]Course
+var coursesOrder []string
+var coursesCache []string
+
+func getByteValue(path string) []byte {
+	jsonFile, _ := os.Open(path)
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	_ = jsonFile.Close()
+	return byteValue
+}
+
+func loadVals() {
+	_ = json.Unmarshal(getByteValue(COURSEPATH), &coursesMap)
+	for k := range coursesMap {
+		coursesOrder = append(coursesOrder, k)
+	}
+	sort.Strings(coursesOrder)
+	for _, v := range coursesOrder {
+		cachedCourse, _ := json.Marshal(coursesMap[v])
+		coursesCache = append(coursesCache, string(cachedCourse))
+	}
+}
