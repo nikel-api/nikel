@@ -1,2 +1,3 @@
-# nikel
-Nikel API
+# Nikel API
+
+Currently in pre-alpha stage.
