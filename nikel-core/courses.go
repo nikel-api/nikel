@@ -39,7 +39,7 @@ func p1Handler(c *gin.Context) {
 }
 
 func getCourseByID(c *gin.Context) {
-	id := c.Param("id")
+	id := c.Param("p1")
 	if val, ok := coursesMap[id]; ok {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status_code":    http.StatusOK,
@@ -50,7 +50,7 @@ func getCourseByID(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status_code":    http.StatusNotFound,
 			"status_message": "course not found",
-			"response":       ""},
+			"response":       nil},
 		)
 	}
 }

@@ -21,6 +21,9 @@ func init() {
 func main() {
 	router := gin.Default()
 	router.Use(usageMetrics())
+	router.GET("/", func(c *gin.Context) {
+		c.Redirect(http.StatusMovedPermanently, "https://docs.nikel.ml")
+	})
 	router.GET("api/status", getStatus)
 	router.GET("api/courses", getCourses)
 	router.GET("api/courses/:p1", p1Handler)
