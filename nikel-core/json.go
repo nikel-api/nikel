@@ -5,6 +5,7 @@ import (
 	"gopkg.in/guregu/null.v4"
 	"io/ioutil"
 	"os"
+	"path/filepath"
 	"sort"
 )
 
@@ -57,7 +58,12 @@ func getByteValue(path string) []byte {
 }
 
 func loadVals() {
-	_ = json.Unmarshal(getByteValue(COURSEPATH), &coursesMap)
+	pathPrefix := ""
+	wd, _ := os.Getwd()
+	if filepath.Base(wd) == "nikel-core" {
+		pathPrefix = "../"
+	}
+	_ = json.Unmarshal(getByteValue(pathPrefix+COURSEPATH), &coursesMap)
 	for k := range coursesMap {
 		coursesOrder = append(coursesOrder, k)
 	}
