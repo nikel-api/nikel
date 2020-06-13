@@ -58,16 +58,7 @@ func filterIntQuery(query string, value null.Int, low, high int) bool {
 		if value.IsZero() {
 			return false
 		}
-		return queryInt != valueParsed
-	} else if strings.HasPrefix(query, "<") {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
-			return false
-		}
-		if value.IsZero() {
-			return false
-		}
-		return queryInt < valueParsed
+		return valueParsed != queryInt
 	} else if strings.HasPrefix(query, "<=") {
 		queryInt := parseInt(query[2:], low, high, -1)
 		if queryInt < 0 {
@@ -76,16 +67,7 @@ func filterIntQuery(query string, value null.Int, low, high int) bool {
 		if value.IsZero() {
 			return false
 		}
-		return queryInt <= valueParsed
-	} else if strings.HasPrefix(query, ">") {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
-			return false
-		}
-		if value.IsZero() {
-			return false
-		}
-		return queryInt > valueParsed
+		return valueParsed <= queryInt
 	} else if strings.HasPrefix(query, ">=") {
 		queryInt := parseInt(query[2:], low, high, -1)
 		if queryInt < 0 {
@@ -94,7 +76,25 @@ func filterIntQuery(query string, value null.Int, low, high int) bool {
 		if value.IsZero() {
 			return false
 		}
-		return queryInt >= valueParsed
+		return valueParsed >= queryInt
+	} else if strings.HasPrefix(query, ">") {
+		queryInt := parseInt(query[1:], low, high, -1)
+		if queryInt < 0 {
+			return false
+		}
+		if value.IsZero() {
+			return false
+		}
+		return valueParsed > queryInt
+	} else if strings.HasPrefix(query, "<") {
+		queryInt := parseInt(query[1:], low, high, -1)
+		if queryInt < 0 {
+			return false
+		}
+		if value.IsZero() {
+			return false
+		}
+		return valueParsed < queryInt
 	} else {
 		queryInt := parseInt(query[1:], low, high, -1)
 		if queryInt < 0 {
@@ -103,7 +103,7 @@ func filterIntQuery(query string, value null.Int, low, high int) bool {
 		if value.IsZero() {
 			return false
 		}
-		return queryInt == valueParsed
+		return valueParsed == queryInt
 	}
 }
 
