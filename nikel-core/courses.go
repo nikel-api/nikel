@@ -10,7 +10,7 @@ func getCourses(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
 	if skipQuery >= len(coursesOrder) {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       []Course{}},
@@ -22,7 +22,7 @@ func getCourses(c *gin.Context) {
 	for idx := skipQuery; idx < upperLimit && idx < len(coursesOrder); idx++ {
 		courses = append(courses, coursesMap[coursesOrder[idx]])
 	}
-	c.JSON(http.StatusNotFound, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status_code":    http.StatusOK,
 		"status_message": "success",
 		"response":       courses},
@@ -41,7 +41,7 @@ func courseHandler(c *gin.Context) {
 func getCourseByID(c *gin.Context) {
 	id := c.Param("p1")
 	if val, ok := coursesMap[id]; ok {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       val},
@@ -59,7 +59,7 @@ func getCoursesBySearch(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
 	if skipQuery >= len(coursesOrder) {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       []Course{}},
@@ -127,7 +127,7 @@ func getCoursesBySearch(c *gin.Context) {
 	for idx := skipQuery; idx < upperLimit && idx < len(resCourses); idx++ {
 		courses = append(courses, resCourses[idx])
 	}
-	c.JSON(http.StatusNotFound, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status_code":    http.StatusOK,
 		"status_message": "success",
 		"response":       courses},

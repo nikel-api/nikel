@@ -10,7 +10,7 @@ func getBuildings(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
 	if skipQuery >= len(buildingsOrder) {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       []Building{}},
@@ -22,7 +22,7 @@ func getBuildings(c *gin.Context) {
 	for idx := skipQuery; idx < upperLimit && idx < len(buildingsOrder); idx++ {
 		buildings = append(buildings, buildingsMap[buildingsOrder[idx]])
 	}
-	c.JSON(http.StatusNotFound, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status_code":    http.StatusOK,
 		"status_message": "success",
 		"response":       buildings},
@@ -41,7 +41,7 @@ func buildingHandler(c *gin.Context) {
 func getBuildingByID(c *gin.Context) {
 	id := c.Param("p1")
 	if val, ok := buildingsMap[id]; ok {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       val},
@@ -59,7 +59,7 @@ func getBuildingBySearch(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
 	if skipQuery >= len(buildingsOrder) {
-		c.JSON(http.StatusNotFound, gin.H{
+		c.JSON(http.StatusOK, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
 			"response":       []Building{}},
@@ -92,7 +92,7 @@ func getBuildingBySearch(c *gin.Context) {
 	for idx := skipQuery; idx < upperLimit && idx < len(resBuildings); idx++ {
 		buildings = append(buildings, resBuildings[idx])
 	}
-	c.JSON(http.StatusNotFound, gin.H{
+	c.JSON(http.StatusOK, gin.H{
 		"status_code":    http.StatusOK,
 		"status_message": "success",
 		"response":       buildings},
