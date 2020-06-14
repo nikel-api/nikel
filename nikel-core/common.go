@@ -52,11 +52,22 @@ func filterQuery(query string, value null.String) bool {
 }
 
 // filterBoolQuery filters based on an bool query
-func filterBoolQuery(query string, value null.Bool) bool {
-	if query == "" || value.IsZero() {
+func filterBoolQuery(query string, value null.Bool, flip ...bool) bool {
+	if value.IsZero() {
+		return false
+	}
+	if query == "" {
 		return true
 	}
-	return value.ValueOrZero()
+	boolean, err := strconv.ParseBool(query)
+	if err != nil {
+		return false
+	}
+	if len(flip) == 0 {
+		return boolean == value.ValueOrZero()
+	} else {
+		return !(boolean == value.ValueOrZero())
+	}
 }
 
 // filterIntQuery light wrapper around filterValueQuery

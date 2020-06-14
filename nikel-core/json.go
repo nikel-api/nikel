@@ -66,11 +66,70 @@ type Building struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+type Food struct {
+	ID          null.String `json:"id"`
+	Name        null.String `json:"name"`
+	Description null.String `json:"description"`
+	Tags        null.String `json:"tags"`
+	Campus      null.String `json:"campus"`
+	Address     null.String `json:"address"`
+	Coordinates struct {
+		Latitude  null.Float `json:"latitude"`
+		Longitude null.Float `json:"longitude"`
+	} `json:"coordinates"`
+	Hours struct {
+		Sunday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"sunday"`
+		Monday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"monday"`
+		Tuesday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"tuesday"`
+		Wednesday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"wednesday"`
+		Thursday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"thursday"`
+		Friday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"friday"`
+		Saturday struct {
+			Closed null.Bool `json:"closed"`
+			Open   null.Int  `json:"open"`
+			Close  null.Int  `json:"close"`
+		} `json:"saturday"`
+	} `json:"hours"`
+	Image       null.String   `json:"image"`
+	URL         null.String   `json:"url"`
+	Twitter     null.String   `json:"twitter"`
+	Facebook    null.String   `json:"facebook"`
+	Attributes  []null.String `json:"attributes"`
+	LastUpdated null.String   `json:"last_updated"`
+}
+
 var coursesMap map[string]Course
 var coursesOrder []string
 
 var buildingsMap map[string]Building
 var buildingsOrder []string
+
+var foodMap map[string]Food
+var foodOrder []string
 
 func getByteValue(path string) []byte {
 	jsonFile, _ := os.Open(path)
@@ -97,4 +156,10 @@ func loadVals() {
 		buildingsOrder = append(buildingsOrder, k)
 	}
 	sort.Strings(buildingsOrder)
+
+	_ = json.Unmarshal(getByteValue(pathPrefix+FOODPATH), &foodMap)
+	for k := range foodMap {
+		foodOrder = append(foodOrder, k)
+	}
+	sort.Strings(foodOrder)
 }
