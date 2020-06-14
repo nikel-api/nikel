@@ -122,6 +122,21 @@ type Food struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
+type Accessibility struct {
+	ID          null.String `json:"id"`
+	Name        null.String `json:"name"`
+	Description null.String `json:"description"`
+	BuildingID  null.String `json:"building_id"`
+	Campus      null.String `json:"campus"`
+	Image       null.String `json:"image"`
+	Coordinates struct {
+		Latitude  null.Float `json:"latitude"`
+		Longitude null.Float `json:"longitude"`
+	} `json:"coordinates"`
+	Attributes  []null.String `json:"attributes"`
+	LastUpdated null.String   `json:"last_updated"`
+}
+
 var coursesMap map[string]Course
 var coursesOrder []string
 
@@ -130,6 +145,9 @@ var buildingsOrder []string
 
 var foodMap map[string]Food
 var foodOrder []string
+
+var accessibilityMap map[string]Accessibility
+var accessibilityOrder []string
 
 func getByteValue(path string) []byte {
 	jsonFile, _ := os.Open(path)
@@ -162,4 +180,10 @@ func loadVals() {
 		foodOrder = append(foodOrder, k)
 	}
 	sort.Strings(foodOrder)
+
+	_ = json.Unmarshal(getByteValue(pathPrefix+ACCESSIBILITY), &accessibilityMap)
+	for k := range accessibilityMap {
+		accessibilityOrder = append(accessibilityOrder, k)
+	}
+	sort.Strings(accessibilityOrder)
 }
