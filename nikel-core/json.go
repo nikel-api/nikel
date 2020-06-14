@@ -46,9 +46,26 @@ type Course struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+type Building struct {
+	ID      null.Int    `json:"id"`
+	Code    null.String `json:"code"`
+	Name    null.String `json:"name"`
+	Campus  null.String `json:"campus"`
+	Address struct {
+		StreetNumber null.String `json:"street_number"`
+		StreetName   null.String `json:"street_name"`
+		City         null.String `json:"city"`
+		Province     null.String `json:"province"`
+		Country      null.String `json:"country"`
+		PostalCode   null.String `json:"postal_code"`
+	} `json:"address"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
 var coursesMap map[string]Course
 var coursesOrder []string
-var coursesCache []string
+
+var buildingsMap map[string]Building
 
 func getByteValue(path string) []byte {
 	jsonFile, _ := os.Open(path)
@@ -63,13 +80,12 @@ func loadVals() {
 	if filepath.Base(wd) == "nikel-core" {
 		pathPrefix = "../"
 	}
+
 	_ = json.Unmarshal(getByteValue(pathPrefix+COURSEPATH), &coursesMap)
 	for k := range coursesMap {
 		coursesOrder = append(coursesOrder, k)
 	}
 	sort.Strings(coursesOrder)
-	for _, v := range coursesOrder {
-		cachedCourse, _ := json.Marshal(coursesMap[v])
-		coursesCache = append(coursesCache, string(cachedCourse))
-	}
+
+	_ = json.Unmarshal(getByteValue(pathPrefix+BUILDINGSPATH), &buildingsMap)
 }

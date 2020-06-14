@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"math"
+	"net/http"
 )
-import "net/http"
 
 func getCourses(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
@@ -29,7 +29,7 @@ func getCourses(c *gin.Context) {
 	)
 }
 
-func p1Handler(c *gin.Context) {
+func courseHandler(c *gin.Context) {
 	p1 := c.Param("p1")
 	if p1 == "search" {
 		getCoursesBySearch(c)

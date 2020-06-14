@@ -26,6 +26,8 @@ func main() {
 	})
 	router.GET("api/status", getStatus)
 	router.GET("api/courses", getCourses)
-	router.GET("api/courses/:p1", p1Handler)
+	router.GET("api/courses/:p1", courseHandler)
+	router.GET("api/buildings", getBuildings)
+	router.GET("api/buildings/:p1", buildingHandler)
 	router.Run()
 }

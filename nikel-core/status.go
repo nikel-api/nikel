@@ -13,7 +13,7 @@ func getStatus(c *gin.Context) {
 			"status_code":    http.StatusInternalServerError,
 			"status_message": "api metrics not found",
 			"response": gin.H{
-				"commands": nil,
+				"requests": nil,
 			},
 		})
 		return
@@ -22,7 +22,7 @@ func getStatus(c *gin.Context) {
 		"status_code":    http.StatusOK,
 		"status_message": "success",
 		"response": gin.H{
-			"commands": response.Value,
+			"requests": response.Value,
 		},
 	})
 }
