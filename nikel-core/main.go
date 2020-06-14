@@ -2,6 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/ulule/limiter/v3"
+	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
+	"github.com/ulule/limiter/v3/drivers/store/memory"
 	"net/http"
 	"os"
 	"time"
@@ -19,7 +22,19 @@ func init() {
 }
 
 func main() {
+	// Handle rate limits
+	rate := limiter.Rate{
+		Period: 1 * time.Second,
+		Limit:  5,
+	}
+
+	store := memory.NewStore()
+	instance := limiter.New(store, rate)
+	middleware := mgin.NewMiddleware(instance)
+
 	router := gin.Default()
+	router.ForwardedByClientIP = true
+	router.Use(middleware)
 	router.Use(usageMetrics())
 	router.GET("/", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "https://docs.nikel.ml")
