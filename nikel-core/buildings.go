@@ -4,13 +4,12 @@ import (
 	"github.com/gin-gonic/gin"
 	"math"
 	"net/http"
-	"strconv"
 )
 
 func getBuildings(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
-	if skipQuery >= len(buildingsMap) {
+	if skipQuery >= len(buildingsOrder) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
@@ -20,8 +19,8 @@ func getBuildings(c *gin.Context) {
 	}
 	upperLimit := skipQuery + limitQuery
 	var buildings []Building
-	for idx := skipQuery; idx < upperLimit && idx < len(buildingsMap); idx++ {
-		buildings = append(buildings, buildingsMap[strconv.Itoa(idx+1)])
+	for idx := skipQuery; idx < upperLimit && idx < len(buildingsOrder); idx++ {
+		buildings = append(buildings, buildingsMap[buildingsOrder[idx]])
 	}
 	c.JSON(http.StatusNotFound, gin.H{
 		"status_code":    http.StatusOK,
@@ -59,7 +58,7 @@ func getBuildingByID(c *gin.Context) {
 func getBuildingBySearch(c *gin.Context) {
 	limitQuery := parseInt(c.Query("limit"), 0, 100, 10)
 	skipQuery := parseInt(c.Query("skip"), 0, math.MaxInt64, 0)
-	if skipQuery >= len(buildingsMap) {
+	if skipQuery >= len(buildingsOrder) {
 		c.JSON(http.StatusNotFound, gin.H{
 			"status_code":    http.StatusOK,
 			"status_message": "success",
@@ -70,18 +69,20 @@ func getBuildingBySearch(c *gin.Context) {
 
 	// TODO: Optimize performance later
 	var resBuildings []Building
-	for idx := 0; idx < len(buildingsMap); idx++ {
-		building := buildingsMap[strconv.Itoa(idx+1)]
-		if filterIntQuery(c.Query("id"), building.ID, 1, len(buildingsMap)) &&
+	for _, v := range buildingsOrder {
+		building := buildingsMap[v]
+		if filterQuery(c.Query("id"), building.ID) &&
 			filterQuery(c.Query("code"), building.Code) &&
+			filterQuery(c.Query("tags"), building.Tags) &&
 			filterQuery(c.Query("name"), building.Name) &&
-			filterQuery(c.Query("campus"), building.Campus) &&
-			filterQuery(c.Query("street_number"), building.Address.StreetNumber) &&
-			filterQuery(c.Query("street_name"), building.Address.StreetName) &&
+			filterQuery(c.Query("short_name"), building.ShortName) &&
+			filterQuery(c.Query("street"), building.Address.Street) &&
 			filterQuery(c.Query("city"), building.Address.City) &&
 			filterQuery(c.Query("province"), building.Address.Province) &&
 			filterQuery(c.Query("country"), building.Address.Country) &&
-			filterQuery(c.Query("postal_code"), building.Address.PostalCode) {
+			filterQuery(c.Query("postal"), building.Address.Postal) &&
+			filterValueQuery(c.Query("latitude"), building.Coordinates.Latitude, -90, 90) &&
+			filterValueQuery(c.Query("longitude"), building.Coordinates.Longitude, -180, 180) {
 			resBuildings = append(resBuildings, building)
 		}
 	}

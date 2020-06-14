@@ -23,6 +23,21 @@ func parseInt(query string, low, high, def int) int {
 	}
 }
 
+// parseFloat is a light wrapper around ParseFloat with bound checks
+func parseFloat(query string, low, high, def int) int {
+	if query == "" {
+		return def
+	} else {
+		i, err := strconv.ParseFloat(query, 10)
+		val := int(i)
+		if err != nil || val < low || val > high {
+			return def
+		} else {
+			return val
+		}
+	}
+}
+
 // filterQuery filters based on an string query
 func filterQuery(query string, value null.String) bool {
 	if query == "" {
@@ -44,66 +59,72 @@ func filterBoolQuery(query string, value null.Bool) bool {
 	return value.ValueOrZero()
 }
 
-// filterIntQuery filters based on an int query
+// filterIntQuery light wrapper around filterValueQuery
 func filterIntQuery(query string, value null.Int, low, high int) bool {
+	newValue := null.NewFloat(float64(value.Int64), value.Valid)
+	return filterValueQuery(query, newValue, low, high)
+}
+
+// filterValueQuery filters based on an number value query
+func filterValueQuery(query string, value null.Float, low, high int) bool {
 	if query == "" {
 		return true
 	}
 	valueParsed := int(value.ValueOrZero())
 	if strings.HasPrefix(query, "!") {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[1:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed != queryInt
+		return valueParsed != queryFloat
 	} else if strings.HasPrefix(query, "<=") {
-		queryInt := parseInt(query[2:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[2:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed <= queryInt
+		return valueParsed <= queryFloat
 	} else if strings.HasPrefix(query, ">=") {
-		queryInt := parseInt(query[2:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[2:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed >= queryInt
+		return valueParsed >= queryFloat
 	} else if strings.HasPrefix(query, ">") {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[1:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed > queryInt
+		return valueParsed > queryFloat
 	} else if strings.HasPrefix(query, "<") {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[1:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed < queryInt
+		return valueParsed < queryFloat
 	} else {
-		queryInt := parseInt(query[1:], low, high, -1)
-		if queryInt < 0 {
+		queryFloat := parseFloat(query[1:], low, high, -1)
+		if queryFloat < 0 {
 			return false
 		}
 		if value.IsZero() {
 			return false
 		}
-		return valueParsed == queryInt
+		return valueParsed == queryFloat
 	}
 }
 

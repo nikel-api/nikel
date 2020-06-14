@@ -47,18 +47,22 @@ type Course struct {
 }
 
 type Building struct {
-	ID      null.Int    `json:"id"`
-	Code    null.String `json:"code"`
-	Name    null.String `json:"name"`
-	Campus  null.String `json:"campus"`
-	Address struct {
-		StreetNumber null.String `json:"street_number"`
-		StreetName   null.String `json:"street_name"`
-		City         null.String `json:"city"`
-		Province     null.String `json:"province"`
-		Country      null.String `json:"country"`
-		PostalCode   null.String `json:"postal_code"`
+	ID        null.String `json:"id"`
+	Code      null.String `json:"code"`
+	Tags      null.String `json:"tags"`
+	Name      null.String `json:"name"`
+	ShortName null.String `json:"short_name"`
+	Address   struct {
+		Street   null.String `json:"street"`
+		City     null.String `json:"city"`
+		Province null.String `json:"province"`
+		Country  null.String `json:"country"`
+		Postal   null.String `json:"postal"`
 	} `json:"address"`
+	Coordinates struct {
+		Latitude  null.Float `json:"latitude"`
+		Longitude null.Float `json:"longitude"`
+	} `json:"coordinates"`
 	LastUpdated null.String `json:"last_updated"`
 }
 
@@ -66,6 +70,7 @@ var coursesMap map[string]Course
 var coursesOrder []string
 
 var buildingsMap map[string]Building
+var buildingsOrder []string
 
 func getByteValue(path string) []byte {
 	jsonFile, _ := os.Open(path)
@@ -88,4 +93,8 @@ func loadVals() {
 	sort.Strings(coursesOrder)
 
 	_ = json.Unmarshal(getByteValue(pathPrefix+BUILDINGSPATH), &buildingsMap)
+	for k := range buildingsMap {
+		buildingsOrder = append(buildingsOrder, k)
+	}
+	sort.Strings(buildingsOrder)
 }
