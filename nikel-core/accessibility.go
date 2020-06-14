@@ -74,7 +74,7 @@ func getAccessibilityBySearch(c *gin.Context) {
 		if filterQuery(c.Query("id"), accessbility.ID) &&
 			filterQuery(c.Query("name"), accessbility.Name) &&
 			filterQuery(c.Query("description"), accessbility.Description) &&
-			filterQuery(c.Query("building_id"), accessbility.Description) &&
+			filterQuery(c.Query("building_id"), accessbility.BuildingID) &&
 			filterQuery(c.Query("campus"), accessbility.Campus) &&
 			filterValueQuery(c.Query("latitude"), accessbility.Coordinates.Latitude, -90, 90) &&
 			filterValueQuery(c.Query("longitude"), accessbility.Coordinates.Longitude, -180, 180) {
