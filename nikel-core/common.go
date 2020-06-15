@@ -51,6 +51,21 @@ func filterQuery(query string, value null.String) bool {
 	return false
 }
 
+// filterQueryArr filters based on an string query on an array
+func filterQueryArr(query string, value []null.String) bool {
+	if query == "" {
+		return true
+	}
+	for _, v := range value {
+		if !v.IsZero() && strings.Contains(
+			strings.ToLower(v.ValueOrZero()),
+			strings.ToLower(query)) {
+			return true
+		}
+	}
+	return false
+}
+
 // filterBoolQuery filters based on an bool query
 func filterBoolQuery(query string, value null.Bool, flip ...bool) bool {
 	if value.IsZero() {

@@ -90,31 +90,23 @@ func getCoursesBySearch(c *gin.Context) {
 			filterQuery(c.Query("utsc_breadth"), course.UtscBreadth) &&
 			filterQuery(c.Query("apsc_electives"), course.ApscElectives) {
 
+		sectionOut:
 			for _, w := range course.MeetingSections {
 				if filterQuery(c.Query("meeting_code"), w.Code) &&
+					filterQueryArr(c.Query("instructor"), w.Instructors) &&
 					filterIntQuery(c.Query("size"), w.Size, 0, math.MaxInt64) &&
 					filterIntQuery(c.Query("enrollment"), w.Enrollment, 0, math.MaxInt64) &&
 					filterBoolQuery(c.Query("waitlist_option"), w.WaitlistOption) &&
 					filterQuery(c.Query("delivery"), w.Delivery) {
 
-					pass := false
-					for _, x := range w.Instructors {
-						if filterQuery(c.Query("instructor"), x) {
-							pass = true
-							break
-						}
-					}
-
-					if pass {
-						for _, x := range w.Times {
-							if filterQuery(c.Query("day"), x.Day) &&
-								filterIntQuery(c.Query("start"), x.Start, 0, 86400) &&
-								filterIntQuery(c.Query("end"), x.End, 0, 86400) &&
-								filterIntQuery(c.Query("duration"), x.End, 0, 86400) &&
-								filterQuery(c.Query("location"), x.Location) {
-								resCourses = append(resCourses, course)
-								break
-							}
+					for _, x := range w.Times {
+						if filterQuery(c.Query("day"), x.Day) &&
+							filterIntQuery(c.Query("start"), x.Start, 0, 86400) &&
+							filterIntQuery(c.Query("end"), x.End, 0, 86400) &&
+							filterIntQuery(c.Query("duration"), x.End, 0, 86400) &&
+							filterQuery(c.Query("location"), x.Location) {
+							resCourses = append(resCourses, course)
+							break sectionOut
 						}
 					}
 				}

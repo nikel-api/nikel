@@ -46,6 +46,27 @@ type Course struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+type Textbook struct {
+	ID      null.String `json:"id"`
+	Isbn    null.String `json:"isbn"`
+	Title   null.String `json:"title"`
+	Edition null.Int    `json:"edition"`
+	Author  null.String `json:"author"`
+	Image   null.String `json:"image"`
+	Price   null.Float  `json:"price"`
+	URL     null.String `json:"url"`
+	Courses []struct {
+		ID              null.String `json:"id"`
+		Code            null.String `json:"code"`
+		Requirement     null.String `json:"requirement"`
+		MeetingSections []struct {
+			Code        null.String   `json:"code"`
+			Instructors []null.String `json:"instructors"`
+		} `json:"meeting_sections"`
+	} `json:"courses"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
 type Building struct {
 	ID        null.String `json:"id"`
 	Code      null.String `json:"code"`
@@ -155,6 +176,9 @@ type Accessibility struct {
 var coursesMap map[string]Course
 var coursesOrder []string
 
+var textbooksMap map[string]Textbook
+var textbooksOrder []string
+
 var buildingsMap map[string]Building
 var buildingsOrder []string
 
@@ -186,6 +210,12 @@ func loadVals() {
 		coursesOrder = append(coursesOrder, k)
 	}
 	sort.Strings(coursesOrder)
+
+	_ = json.Unmarshal(getByteValue(pathPrefix+TEXTBOOKPATH), &textbooksMap)
+	for k := range textbooksMap {
+		textbooksOrder = append(textbooksOrder, k)
+	}
+	sort.Strings(textbooksOrder)
 
 	_ = json.Unmarshal(getByteValue(pathPrefix+BUILDINGSPATH), &buildingsMap)
 	for k := range buildingsMap {

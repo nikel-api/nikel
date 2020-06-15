@@ -85,14 +85,9 @@ func getFoodBySearch(c *gin.Context) {
 			filterBoolQuery(c.Query("wednesday"), food.Hours.Wednesday.Closed, true) &&
 			filterBoolQuery(c.Query("thursday"), food.Hours.Thursday.Closed, true) &&
 			filterBoolQuery(c.Query("friday"), food.Hours.Friday.Closed, true) &&
-			filterBoolQuery(c.Query("saturday"), food.Hours.Saturday.Closed, true) {
-
-			for _, w := range food.Attributes {
-				if filterQuery(c.Query("attributes"), w) {
-					resFood = append(resFood, food)
-					break
-				}
-			}
+			filterBoolQuery(c.Query("saturday"), food.Hours.Saturday.Closed, true) &&
+			filterQueryArr(c.Query("attributes"), food.Attributes) {
+			resFood = append(resFood, food)
 		}
 	}
 

@@ -42,6 +42,8 @@ func main() {
 	router.GET("api/status", getStatus)
 	router.GET("api/courses", getCourses)
 	router.GET("api/courses/:p1", courseHandler)
+	router.GET("api/textbooks", getTextbooks)
+	router.GET("api/textbooks/:p1", textbookHandler)
 	router.GET("api/buildings", getBuildings)
 	router.GET("api/buildings/:p1", buildingHandler)
 	router.GET("api/food", getFood)
