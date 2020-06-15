@@ -103,7 +103,7 @@ func getCoursesBySearch(c *gin.Context) {
 						if filterQuery(c.Query("day"), x.Day) &&
 							filterIntQuery(c.Query("start"), x.Start, 0, 86400) &&
 							filterIntQuery(c.Query("end"), x.End, 0, 86400) &&
-							filterIntQuery(c.Query("duration"), x.End, 0, 86400) &&
+							filterIntQuery(c.Query("duration"), x.Duration, 0, 86400) &&
 							filterQuery(c.Query("location"), x.Location) {
 							resCourses = append(resCourses, course)
 							break sectionOut
