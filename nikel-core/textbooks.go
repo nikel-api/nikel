@@ -77,11 +77,32 @@ func getTextbooksBySearch(c *gin.Context) {
 			filterIntQuery(c.Query("edition"), textbook.Edition, 0, math.MaxInt64) &&
 			filterQuery(c.Query("author"), textbook.Author) &&
 			filterValueQuery(c.Query("price"), textbook.Price, 0, math.MaxInt64) {
+
+			// This is a mess that has to be fixed
+			if len(textbook.Courses) == 0 &&
+				len(c.Query("course_id")) == 0 &&
+				len(c.Query("course_code")) == 0 &&
+				len(c.Query("requirement")) == 0 &&
+				len(c.Query("section_code")) == 0 &&
+				len(c.Query("instructors")) == 0 {
+				resTextbooks = append(resTextbooks, textbook)
+				continue
+			}
+
 		coursesOut:
 			for _, w := range textbook.Courses {
 				if filterQuery(c.Query("course_id"), w.ID) &&
 					filterQuery(c.Query("course_code"), w.Code) &&
 					filterQuery(c.Query("requirement"), w.Requirement) {
+
+					// This is a mess that has to be fixed
+					if len(w.MeetingSections) == 0 &&
+						len(c.Query("section_code")) == 0 &&
+						len(c.Query("instructors")) == 0 {
+						resTextbooks = append(resTextbooks, textbook)
+						break coursesOut
+					}
+
 					for _, x := range w.MeetingSections {
 						if filterQuery(c.Query("section_code"), x.Code) &&
 							filterQueryArr(c.Query("instructors"), x.Instructors) {

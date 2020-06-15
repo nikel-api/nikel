@@ -90,6 +90,23 @@ func getCoursesBySearch(c *gin.Context) {
 			filterQuery(c.Query("utsc_breadth"), course.UtscBreadth) &&
 			filterQuery(c.Query("apsc_electives"), course.ApscElectives) {
 
+			// This is a mess that has to be fixed
+			if len(course.MeetingSections) == 0 &&
+				len(c.Query("meeting_code")) == 0 &&
+				len(c.Query("instructor")) == 0 &&
+				len(c.Query("size")) == 0 &&
+				len(c.Query("enrollment")) == 0 &&
+				len(c.Query("waitlist_option")) == 0 &&
+				len(c.Query("delivery")) == 0 &&
+				len(c.Query("day")) == 0 &&
+				len(c.Query("start")) == 0 &&
+				len(c.Query("end")) == 0 &&
+				len(c.Query("duration")) == 0 &&
+				len(c.Query("location")) == 0 {
+				resCourses = append(resCourses, course)
+				continue
+			}
+
 		sectionOut:
 			for _, w := range course.MeetingSections {
 				if filterQuery(c.Query("meeting_code"), w.Code) &&
@@ -98,6 +115,17 @@ func getCoursesBySearch(c *gin.Context) {
 					filterIntQuery(c.Query("enrollment"), w.Enrollment, 0, math.MaxInt64) &&
 					filterBoolQuery(c.Query("waitlist_option"), w.WaitlistOption) &&
 					filterQuery(c.Query("delivery"), w.Delivery) {
+
+					// This is also a mess that has to be fixed
+					if len(w.Times) == 0 &&
+						len(c.Query("day")) == 0 &&
+						len(c.Query("start")) == 0 &&
+						len(c.Query("end")) == 0 &&
+						len(c.Query("duration")) == 0 &&
+						len(c.Query("location")) == 0 {
+						resCourses = append(resCourses, course)
+						break sectionOut
+					}
 
 					for _, x := range w.Times {
 						if filterQuery(c.Query("day"), x.Day) &&
