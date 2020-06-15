@@ -46,6 +46,8 @@ func main() {
 	router.GET("api/buildings/:p1", buildingHandler)
 	router.GET("api/food", getFood)
 	router.GET("api/food/:p1", foodHandler)
+	router.GET("api/parking", getParking)
+	router.GET("api/parking/:p1", parkingHandler)
 	router.GET("api/accessibility", getAccessibility)
 	router.GET("api/accessibility/:p1", accessibilityHandler)
 	router.Run()

@@ -122,6 +122,21 @@ type Food struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
+type Parking struct {
+	ID          null.String `json:"id"`
+	Name        null.String `json:"name"`
+	Alias       null.String `json:"alias"`
+	BuildingID  null.String `json:"building_id"`
+	Description null.String `json:"description"`
+	Campus      null.String `json:"campus"`
+	Address     null.String `json:"address"`
+	Coordinates struct {
+		Latitude  null.Float `json:"latitude"`
+		Longitude null.Float `json:"longitude"`
+	} `json:"coordinates"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
 type Accessibility struct {
 	ID          null.String `json:"id"`
 	Name        null.String `json:"name"`
@@ -145,6 +160,9 @@ var buildingsOrder []string
 
 var foodMap map[string]Food
 var foodOrder []string
+
+var parkingMap map[string]Parking
+var parkingOrder []string
 
 var accessibilityMap map[string]Accessibility
 var accessibilityOrder []string
@@ -181,7 +199,13 @@ func loadVals() {
 	}
 	sort.Strings(foodOrder)
 
-	_ = json.Unmarshal(getByteValue(pathPrefix+ACCESSIBILITY), &accessibilityMap)
+	_ = json.Unmarshal(getByteValue(pathPrefix+PARKINGPATH), &parkingMap)
+	for k := range parkingMap {
+		parkingOrder = append(parkingOrder, k)
+	}
+	sort.Strings(parkingOrder)
+
+	_ = json.Unmarshal(getByteValue(pathPrefix+ACCESSIBILITYPATH), &accessibilityMap)
 	for k := range accessibilityMap {
 		accessibilityOrder = append(accessibilityOrder, k)
 	}
