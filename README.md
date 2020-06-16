@@ -31,7 +31,7 @@ go build
 6. run nikel-core
 ```
 Windows
-nikel-core.exe
+./nikel-core.exe
 
 Linux and macOS
 ./nikel-core
