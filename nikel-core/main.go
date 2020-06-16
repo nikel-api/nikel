@@ -25,7 +25,7 @@ func main() {
 	// Handle rate limits
 	rate := limiter.Rate{
 		Period: 1 * time.Second,
-		Limit:  5,
+		Limit:  10,
 	}
 
 	store := memory.NewStore()
