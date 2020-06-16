@@ -1,12 +1,10 @@
 package main
 
 import (
-	"encoding/json"
+	"github.com/thedevsaddam/gojsonq/v2"
 	"gopkg.in/guregu/null.v4"
-	"io/ioutil"
 	"os"
 	"path/filepath"
-	"sort"
 )
 
 type Course struct {
@@ -173,30 +171,16 @@ type Accessibility struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
-var coursesMap map[string]Course
-var coursesOrder []string
-
-var textbooksMap map[string]Textbook
-var textbooksOrder []string
-
-var buildingsMap map[string]Building
-var buildingsOrder []string
-
-var foodMap map[string]Food
-var foodOrder []string
-
-var parkingMap map[string]Parking
-var parkingOrder []string
-
-var accessibilityMap map[string]Accessibility
-var accessibilityOrder []string
-
-func getByteValue(path string) []byte {
-	jsonFile, _ := os.Open(path)
-	byteValue, _ := ioutil.ReadAll(jsonFile)
-	_ = jsonFile.Close()
-	return byteValue
+type Database struct {
+	CoursesData       *gojsonq.JSONQ
+	TextbooksData     *gojsonq.JSONQ
+	BuildingsData     *gojsonq.JSONQ
+	FoodData          *gojsonq.JSONQ
+	ParkingData       *gojsonq.JSONQ
+	AccessibilityData *gojsonq.JSONQ
 }
+
+var database = &Database{}
 
 func loadVals() {
 	pathPrefix := ""
@@ -205,39 +189,10 @@ func loadVals() {
 		pathPrefix = "../"
 	}
 
-	_ = json.Unmarshal(getByteValue(pathPrefix+COURSEPATH), &coursesMap)
-	for k := range coursesMap {
-		coursesOrder = append(coursesOrder, k)
-	}
-	sort.Strings(coursesOrder)
-
-	_ = json.Unmarshal(getByteValue(pathPrefix+TEXTBOOKPATH), &textbooksMap)
-	for k := range textbooksMap {
-		textbooksOrder = append(textbooksOrder, k)
-	}
-	sort.Strings(textbooksOrder)
-
-	_ = json.Unmarshal(getByteValue(pathPrefix+BUILDINGSPATH), &buildingsMap)
-	for k := range buildingsMap {
-		buildingsOrder = append(buildingsOrder, k)
-	}
-	sort.Strings(buildingsOrder)
-
-	_ = json.Unmarshal(getByteValue(pathPrefix+FOODPATH), &foodMap)
-	for k := range foodMap {
-		foodOrder = append(foodOrder, k)
-	}
-	sort.Strings(foodOrder)
-
-	_ = json.Unmarshal(getByteValue(pathPrefix+PARKINGPATH), &parkingMap)
-	for k := range parkingMap {
-		parkingOrder = append(parkingOrder, k)
-	}
-	sort.Strings(parkingOrder)
-
-	_ = json.Unmarshal(getByteValue(pathPrefix+ACCESSIBILITYPATH), &accessibilityMap)
-	for k := range accessibilityMap {
-		accessibilityOrder = append(accessibilityOrder, k)
-	}
-	sort.Strings(accessibilityOrder)
+	database.CoursesData = gojsonq.New().File(pathPrefix + COURSEPATH)
+	database.TextbooksData = gojsonq.New().File(pathPrefix + TEXTBOOKPATH)
+	database.BuildingsData = gojsonq.New().File(pathPrefix + BUILDINGSPATH)
+	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH)
+	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
+	database.AccessibilityData = gojsonq.New().File(pathPrefix + ACCESSIBILITYPATH)
 }
