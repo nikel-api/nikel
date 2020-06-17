@@ -51,5 +51,6 @@ func main() {
 	router.GET("api/food", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getFood))
 	router.GET("api/parking", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getParking))
 	router.GET("api/accessibility", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getAccessibility))
+	router.GET("api/exams", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getExams))
 	router.Run()
 }

@@ -171,6 +171,23 @@ type Accessibility struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
+type Exam struct {
+	ID         null.String `json:"id"`
+	CourseID   null.String `json:"course_id"`
+	CourseCode null.String `json:"course_code"`
+	Campus     null.String `json:"campus"`
+	Date       null.String `json:"date"`
+	Start      null.Int    `json:"start"`
+	End        null.Int    `json:"end"`
+	Duration   null.Int    `json:"duration"`
+	Sections   []struct {
+		LectureCode null.String `json:"lecture_code"`
+		Split       null.String `json:"split"`
+		Location    null.String `json:"location"`
+	} `json:"sections"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
 type Database struct {
 	CoursesData       *gojsonq.JSONQ
 	TextbooksData     *gojsonq.JSONQ
@@ -178,6 +195,7 @@ type Database struct {
 	FoodData          *gojsonq.JSONQ
 	ParkingData       *gojsonq.JSONQ
 	AccessibilityData *gojsonq.JSONQ
+	ExamsData         *gojsonq.JSONQ
 }
 
 var database = &Database{}
@@ -195,4 +213,5 @@ func loadVals() {
 	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH)
 	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
 	database.AccessibilityData = gojsonq.New().File(pathPrefix + ACCESSIBILITYPATH)
+	database.ExamsData = gojsonq.New().File(pathPrefix+EXAMSPATH)
 }

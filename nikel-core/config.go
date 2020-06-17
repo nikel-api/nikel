@@ -9,6 +9,7 @@ const (
 	FOODPATH          = "nikel-parser/data/food.json"
 	PARKINGPATH       = "nikel-parser/data/parking.json"
 	ACCESSIBILITYPATH = "nikel-parser/data/accessibility.json"
+	EXAMSPATH         = "nikel-parser/data/exams.json"
 	TOPLIMIT          = 100
 	DEFAULTLIMIT      = 10
 	DEFAULTTTL        = time.Minute * 15
