@@ -45,11 +45,11 @@ func main() {
 
 	router.GET("api/status", getStatus)
 	router.GET("api/metrics", getMetrics)
-	router.GET("api/courses", cache.CachePage(cacheStore, DEFAULTTTL, getCourses))
-	router.GET("api/textbooks", cache.CachePage(cacheStore, DEFAULTTTL, getTextbooks))
-	router.GET("api/buildings", cache.CachePage(cacheStore, DEFAULTTTL, getBuildings))
-	router.GET("api/food", cache.CachePage(cacheStore, DEFAULTTTL, getFood))
-	router.GET("api/parking", cache.CachePage(cacheStore, DEFAULTTTL, getParking))
-	router.GET("api/accessibility", cache.CachePage(cacheStore, DEFAULTTTL, getAccessibility))
+	router.GET("api/courses", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getCourses))
+	router.GET("api/textbooks", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getTextbooks))
+	router.GET("api/buildings", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getBuildings))
+	router.GET("api/food", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getFood))
+	router.GET("api/parking", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getParking))
+	router.GET("api/accessibility", cache.CachePageWithoutHeader(cacheStore, DEFAULTTTL, getAccessibility))
 	router.Run()
 }

@@ -11,5 +11,5 @@ const (
 	ACCESSIBILITYPATH = "nikel-parser/data/accessibility.json"
 	TOPLIMIT          = 100
 	DEFAULTLIMIT      = 10
-	DEFAULTTTL        = time.Minute * 30
+	DEFAULTTTL        = time.Minute * 15
 )

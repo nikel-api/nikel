@@ -12,6 +12,8 @@ func getMetrics(c *gin.Context) {
 	sendSuccess(c, gin.H{
 		"memory":           memStats.TotalAlloc,
 		"memory_humanized": humanize.Bytes(memStats.TotalAlloc),
+		"sys":              memStats.Sys,
+		"sys_humanized":    humanize.Bytes(memStats.Sys),
 		"routines":         runtime.NumGoroutine(),
 	})
 }
