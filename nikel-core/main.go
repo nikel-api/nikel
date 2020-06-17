@@ -44,6 +44,7 @@ func main() {
 	})
 
 	router.GET("api/status", getStatus)
+	router.GET("api/metrics", getMetrics)
 	router.GET("api/courses", cache.CachePage(cacheStore, DEFAULTTTL, getCourses))
 	router.GET("api/textbooks", cache.CachePage(cacheStore, DEFAULTTTL, getTextbooks))
 	router.GET("api/buildings", cache.CachePage(cacheStore, DEFAULTTTL, getBuildings))
