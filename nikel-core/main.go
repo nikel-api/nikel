@@ -1,8 +1,6 @@
 package main
 
 import (
-	"github.com/gin-contrib/cache"
-	"github.com/gin-contrib/cache/persistence"
 	"github.com/gin-gonic/gin"
 	"github.com/ulule/limiter/v3"
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
@@ -33,8 +31,6 @@ func main() {
 	rateInstance := limiter.New(rateStore, ratelimit)
 	rateMiddleware := mgin.NewMiddleware(rateInstance)
 
-	cacheStore := persistence.NewInMemoryStore(persistence.DEFAULT)
-
 	router := gin.Default()
 	router.ForwardedByClientIP = true
 	router.Use(rateMiddleware)
@@ -43,14 +39,13 @@ func main() {
 		c.Redirect(http.StatusMovedPermanently, "https://docs.nikel.ml")
 	})
 
-	router.GET("api/status", getStatus)
 	router.GET("api/metrics", getMetrics)
-	router.GET("api/courses", cache.CachePage(cacheStore, DEFAULTTTL, getCourses))
-	router.GET("api/textbooks", cache.CachePage(cacheStore, DEFAULTTTL, getTextbooks))
-	router.GET("api/buildings", cache.CachePage(cacheStore, DEFAULTTTL, getBuildings))
-	router.GET("api/food", cache.CachePage(cacheStore, DEFAULTTTL, getFood))
-	router.GET("api/parking", cache.CachePage(cacheStore, DEFAULTTTL, getParking))
-	router.GET("api/accessibility", cache.CachePage(cacheStore, DEFAULTTTL, getAccessibility))
-	router.GET("api/exams", cache.CachePage(cacheStore, DEFAULTTTL, getExams))
+	router.GET("api/courses", getCourses)
+	router.GET("api/textbooks", getTextbooks)
+	router.GET("api/buildings", getBuildings)
+	router.GET("api/food", getFood)
+	router.GET("api/parking", getParking)
+	router.GET("api/accessibility", getAccessibility)
+	router.GET("api/exams", getExams)
 	router.Run()
 }
