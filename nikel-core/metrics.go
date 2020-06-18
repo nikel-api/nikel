@@ -10,8 +10,8 @@ func getMetrics(c *gin.Context) {
 	var memStats runtime.MemStats
 	runtime.ReadMemStats(&memStats)
 	sendSuccess(c, gin.H{
-		"memory":           memStats.TotalAlloc,
-		"memory_humanized": humanize.Bytes(memStats.TotalAlloc),
+		"memory":           memStats.Alloc,
+		"memory_humanized": humanize.Bytes(memStats.Alloc),
 		"sys":              memStats.Sys,
 		"sys_humanized":    humanize.Bytes(memStats.Sys),
 		"routines":         runtime.NumGoroutine(),

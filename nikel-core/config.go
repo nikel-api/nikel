@@ -12,5 +12,5 @@ const (
 	EXAMSPATH         = "nikel-parser/data/exams.json"
 	TOPLIMIT          = 100
 	DEFAULTLIMIT      = 10
-	DEFAULTTTL        = time.Minute * 15
+	DEFAULTTTL        = time.Minute * 60
 )
