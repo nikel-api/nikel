@@ -13,6 +13,7 @@ func init() {
 }
 
 func main() {
+	// set ratelimit at 20 req/s
 	ratelimit := limiter.Rate{
 		Period: 1 * time.Second,
 		Limit:  20,
@@ -26,6 +27,7 @@ func main() {
 	router.ForwardedByClientIP = true
 	router.Use(rateMiddleware)
 
+	// define routes
 	router.GET("api/metrics", getMetrics)
 	router.GET("api/courses", getCourses)
 	router.GET("api/textbooks", getTextbooks)
@@ -34,5 +36,7 @@ func main() {
 	router.GET("api/parking", getParking)
 	router.GET("api/accessibility", getAccessibility)
 	router.GET("api/exams", getExams)
+
+	// run server
 	router.Run()
 }

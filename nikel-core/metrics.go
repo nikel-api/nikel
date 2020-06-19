@@ -6,6 +6,7 @@ import (
 	"runtime"
 )
 
+// getMetrics returns runtime metrics for app health monitoring
 func getMetrics(c *gin.Context) {
 	var memStats runtime.MemStats
 	runtime.ReadMemStats(&memStats)

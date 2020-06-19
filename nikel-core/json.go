@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 )
 
+// Course represents a course item
 type Course struct {
 	ID                         null.String `json:"id"`
 	Code                       null.String `json:"code"`
@@ -44,6 +45,7 @@ type Course struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Textbook represents a textbook item
 type Textbook struct {
 	ID      null.String `json:"id"`
 	Isbn    null.String `json:"isbn"`
@@ -65,6 +67,7 @@ type Textbook struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Building represents a building item
 type Building struct {
 	ID        null.String `json:"id"`
 	Code      null.String `json:"code"`
@@ -85,6 +88,7 @@ type Building struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Food represents a food item
 type Food struct {
 	ID          null.String `json:"id"`
 	Name        null.String `json:"name"`
@@ -141,6 +145,7 @@ type Food struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
+// Parking represents a parking item
 type Parking struct {
 	ID          null.String `json:"id"`
 	Name        null.String `json:"name"`
@@ -156,6 +161,7 @@ type Parking struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Accessibility represents an accessibility item
 type Accessibility struct {
 	ID          null.String `json:"id"`
 	Name        null.String `json:"name"`
@@ -171,6 +177,7 @@ type Accessibility struct {
 	LastUpdated null.String   `json:"last_updated"`
 }
 
+// Exam represents an exam item
 type Exam struct {
 	ID         null.String `json:"id"`
 	CourseID   null.String `json:"course_id"`
@@ -188,6 +195,7 @@ type Exam struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Database stores Nikel's data
 type Database struct {
 	CoursesData       *gojsonq.JSONQ
 	TextbooksData     *gojsonq.JSONQ
@@ -200,6 +208,7 @@ type Database struct {
 
 var database = &Database{}
 
+// loadVals loads JSON data to database
 func loadVals() {
 	pathPrefix := ""
 	wd, _ := os.Getwd()
@@ -213,5 +222,5 @@ func loadVals() {
 	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH)
 	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
 	database.AccessibilityData = gojsonq.New().File(pathPrefix + ACCESSIBILITYPATH)
-	database.ExamsData = gojsonq.New().File(pathPrefix+EXAMSPATH)
+	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH)
 }
