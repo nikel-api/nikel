@@ -4,8 +4,6 @@
 
 <a href="https://status.nikel.ml"><img src="https://statuspage.freshping.io/badge/e7bd2cad-adfa-4651-938d-9a8faa8b3445?0.05201877207830097"/> </a>
 
-Currently in pre-alpha stage.
-
 ### Self Hosting
 
 1. git clone
