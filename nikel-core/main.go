@@ -5,26 +5,17 @@ import (
 	"github.com/ulule/limiter/v3"
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
-	"net/http"
-	"os"
 	"time"
 )
 
-var HttpClient *http.Client
-var MetricApi string
-
 func init() {
 	loadVals()
-	HttpClient = &http.Client{
-		Timeout: time.Second * 10,
-	}
-	MetricApi = os.Getenv("METRICAPI")
 }
 
 func main() {
 	ratelimit := limiter.Rate{
 		Period: 1 * time.Second,
-		Limit:  10,
+		Limit:  20,
 	}
 
 	rateStore := memory.NewStore()
@@ -34,10 +25,6 @@ func main() {
 	router := gin.Default()
 	router.ForwardedByClientIP = true
 	router.Use(rateMiddleware)
-	router.Use(usageMetrics())
-	router.GET("/", func(c *gin.Context) {
-		c.Redirect(http.StatusMovedPermanently, "https://docs.nikel.ml")
-	})
 
 	router.GET("api/metrics", getMetrics)
 	router.GET("api/courses", getCourses)

@@ -1,7 +1,5 @@
 package main
 
-import "time"
-
 const (
 	COURSEPATH        = "nikel-parser/data/courses.json"
 	TEXTBOOKPATH      = "nikel-parser/data/textbooks.json"
@@ -12,5 +10,4 @@ const (
 	EXAMSPATH         = "nikel-parser/data/exams.json"
 	TOPLIMIT          = 100
 	DEFAULTLIMIT      = 10
-	DEFAULTTTL        = time.Minute * 60
 )
