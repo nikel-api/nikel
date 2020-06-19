@@ -7,24 +7,24 @@ import (
 	"math"
 )
 
-// getAccessibility queries via the accessibility endpoint
-func getAccessibility(c *gin.Context) {
+// getServices queries via the services endpoint
+func getServices(c *gin.Context) {
 	offset := parseInt(c.Query("offset"), 0, math.MaxInt64, 0)
 	limit := parseInt(c.Query("limit"), 1, TOPLIMIT, DEFAULTLIMIT)
 
 	data := autoQuery(
-		database.AccessibilityData,
+		database.ServicesData,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var accessibility []Accessibility
-	json.Unmarshal(res, &accessibility)
-	if len(accessibility) == 0 {
+	var services []Service
+	json.Unmarshal(res, &services)
+	if len(services) == 0 {
 		sendEmptySuccess(c)
 	} else {
-		sendSuccess(c, accessibility)
+		sendSuccess(c, services)
 	}
 }

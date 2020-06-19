@@ -34,7 +34,7 @@ func main() {
 	router.GET("api/buildings", getBuildings)
 	router.GET("api/food", getFood)
 	router.GET("api/parking", getParking)
-	router.GET("api/accessibility", getAccessibility)
+	router.GET("api/services", getServices)
 	router.GET("api/exams", getExams)
 
 	// run server

@@ -161,18 +161,21 @@ type Parking struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
-// Accessibility represents an accessibility item
-type Accessibility struct {
+// Service represents an service item
+type Service struct {
 	ID          null.String `json:"id"`
 	Name        null.String `json:"name"`
-	Description null.String `json:"description"`
+	Alias       null.String `json:"alias"`
 	BuildingID  null.String `json:"building_id"`
+	Description null.String `json:"description"`
 	Campus      null.String `json:"campus"`
+	Address     null.String `json:"address"`
 	Image       null.String `json:"image"`
 	Coordinates struct {
 		Latitude  null.Float `json:"latitude"`
 		Longitude null.Float `json:"longitude"`
 	} `json:"coordinates"`
+	Tags        null.String   `json:"tags"`
 	Attributes  []null.String `json:"attributes"`
 	LastUpdated null.String   `json:"last_updated"`
 }
@@ -197,13 +200,13 @@ type Exam struct {
 
 // Database stores Nikel's data
 type Database struct {
-	CoursesData       *gojsonq.JSONQ
-	TextbooksData     *gojsonq.JSONQ
-	BuildingsData     *gojsonq.JSONQ
-	FoodData          *gojsonq.JSONQ
-	ParkingData       *gojsonq.JSONQ
-	AccessibilityData *gojsonq.JSONQ
-	ExamsData         *gojsonq.JSONQ
+	CoursesData   *gojsonq.JSONQ
+	TextbooksData *gojsonq.JSONQ
+	BuildingsData *gojsonq.JSONQ
+	FoodData      *gojsonq.JSONQ
+	ParkingData   *gojsonq.JSONQ
+	ServicesData  *gojsonq.JSONQ
+	ExamsData     *gojsonq.JSONQ
 }
 
 var database = &Database{}
@@ -221,6 +224,6 @@ func loadVals() {
 	database.BuildingsData = gojsonq.New().File(pathPrefix + BUILDINGSPATH)
 	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH)
 	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
-	database.AccessibilityData = gojsonq.New().File(pathPrefix + ACCESSIBILITYPATH)
+	database.ServicesData = gojsonq.New().File(pathPrefix + SERVICESPATH)
 	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH)
 }
