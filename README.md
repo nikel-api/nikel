@@ -1,10 +1,12 @@
 # Nikel API
 
-[Nikel API Website](https://nikel.ml)
+### Documentation
 
-<a href="https://status.nikel.ml"><img src="https://statuspage.freshping.io/badge/e7bd2cad-adfa-4651-938d-9a8faa8b3445?0.05201877207830097"/> </a>
+[Nikel API Documentation](https://docs.nikel.ml/docs)
 
 ### Self Hosting
+
+Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
 
 1. git clone
 ```
@@ -34,3 +36,12 @@ Windows
 Linux and macOS
 ./nikel-core
 ```
+
+### Contributing
+
+For contributing, there are a few things to look out for:
+
+* Always use `go fmt` to format code
+* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't 100% sure
+
+If you find any inconsistencies or parts of code that can be reworked, any pull requests are greatly appreciated.
