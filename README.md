@@ -4,6 +4,17 @@
 
 [Nikel API Documentation](https://docs.nikel.ml/docs)
 
+### Endpoints currently supported
+
+* /courses
+* /textbooks
+* /exams
+* /evals
+* /food
+* /services
+* /buildings
+* /parking
+
 ### Self Hosting
 
 Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
