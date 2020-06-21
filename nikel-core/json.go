@@ -244,12 +244,12 @@ func loadVals() {
 		pathPrefix = "../"
 	}
 
-	database.CoursesData = gojsonq.New().File(pathPrefix + COURSEPATH)
-	database.TextbooksData = gojsonq.New().File(pathPrefix + TEXTBOOKPATH)
-	database.BuildingsData = gojsonq.New().File(pathPrefix + BUILDINGSPATH)
-	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH)
-	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
-	database.ServicesData = gojsonq.New().File(pathPrefix + SERVICESPATH)
-	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH)
-	database.EvalsData = gojsonq.New().File(pathPrefix + EVALSPATH)
+	database.CoursesData = gojsonq.New().File(pathPrefix + COURSEPATH).Reset()
+	database.TextbooksData = gojsonq.New().File(pathPrefix + TEXTBOOKPATH).Reset()
+	database.BuildingsData = gojsonq.New().File(pathPrefix + BUILDINGSPATH).Reset()
+	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH).Reset()
+	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH).Reset()
+	database.ServicesData = gojsonq.New().File(pathPrefix + SERVICESPATH).Reset()
+	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH).Reset()
+	database.EvalsData = gojsonq.New().File(pathPrefix + EVALSPATH).Reset()
 }
