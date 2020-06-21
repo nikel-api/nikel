@@ -8,6 +8,7 @@ const (
 	PARKINGPATH   = "nikel-parser/data/parking.json"
 	SERVICESPATH  = "nikel-parser/data/services.json"
 	EXAMSPATH     = "nikel-parser/data/exams.json"
+	EVALSPATH     = "nikel-parser/data/evals.json"
 	TOPLIMIT      = 100
 	DEFAULTLIMIT  = 10
 )

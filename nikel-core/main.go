@@ -36,6 +36,7 @@ func main() {
 	router.GET("api/parking", getParking)
 	router.GET("api/services", getServices)
 	router.GET("api/exams", getExams)
+	router.GET("api/evals", getEvals)
 
 	// run server
 	router.Run()

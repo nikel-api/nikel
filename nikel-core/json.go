@@ -198,6 +198,30 @@ type Exam struct {
 	LastUpdated null.String `json:"last_updated"`
 }
 
+// Eval represents an eval item
+type Eval struct {
+	ID     null.String `json:"id"`
+	Name   null.String `json:"name"`
+	Campus null.String `json:"campus"`
+	Terms  []struct {
+		Term     null.String `json:"term"`
+		Lectures []struct {
+			LectureCode null.String `json:"lecture_code"`
+			Firstname   null.String `json:"firstname"`
+			Lastname    null.String `json:"lastname"`
+			S1          null.Float  `json:"s1"`
+			S2          null.Float  `json:"s2"`
+			S3          null.Float  `json:"s3"`
+			S4          null.Float  `json:"s4"`
+			S5          null.Float  `json:"s5"`
+			S6          null.Float  `json:"s6"`
+			Invited     null.Int    `json:"invited"`
+			Responses   null.Int    `json:"responses"`
+		} `json:"lectures"`
+	} `json:"terms"`
+	LastUpdated null.String `json:"last_updated"`
+}
+
 // Database stores Nikel's data
 type Database struct {
 	CoursesData   *gojsonq.JSONQ
@@ -207,6 +231,7 @@ type Database struct {
 	ParkingData   *gojsonq.JSONQ
 	ServicesData  *gojsonq.JSONQ
 	ExamsData     *gojsonq.JSONQ
+	EvalsData     *gojsonq.JSONQ
 }
 
 var database = &Database{}
@@ -226,4 +251,5 @@ func loadVals() {
 	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH)
 	database.ServicesData = gojsonq.New().File(pathPrefix + SERVICESPATH)
 	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH)
+	database.EvalsData = gojsonq.New().File(pathPrefix + EVALSPATH)
 }
