@@ -42,6 +42,15 @@ func sendEmptySuccess(c *gin.Context) {
 	)
 }
 
+// sendNotFound sends 404 JSON payload
+func sendNotFound(c *gin.Context) {
+	c.JSON(http.StatusNotFound, gin.H{
+		"status_code":    http.StatusNotFound,
+		"status_message": "error: endpoint not found",
+		"response":       []struct{}{}},
+	)
+}
+
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
 	if strings.HasPrefix(query, "<=") ||

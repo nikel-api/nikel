@@ -2,9 +2,12 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/newrelic/go-agent/v3/integrations/nrgin"
+	"github.com/newrelic/go-agent/v3/newrelic"
 	"github.com/ulule/limiter/v3"
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
+	"os"
 	"time"
 )
 
@@ -27,6 +30,19 @@ func main() {
 	router.ForwardedByClientIP = true
 	router.Use(rateMiddleware)
 
+	// new relic apm monitoring
+	newRelicLicense := os.Getenv("NEW_RELIC_LICENSE_KEY")
+	if len(newRelicLicense) != 0 {
+		app, err := newrelic.NewApplication(
+			newrelic.ConfigAppName("Nikel API"),
+			newrelic.ConfigLicense(newRelicLicense),
+		)
+		if err != nil {
+			panic(err)
+		}
+		router.Use(nrgin.Middleware(app))
+	}
+
 	// define routes
 	router.GET("api/metrics", getMetrics)
 	router.GET("api/courses", getCourses)
@@ -37,7 +53,11 @@ func main() {
 	router.GET("api/services", getServices)
 	router.GET("api/exams", getExams)
 	router.GET("api/evals", getEvals)
+	router.NoRoute(sendNotFound)
 
 	// run server
-	router.Run()
+	err := router.Run()
+	if err != nil {
+		panic(err)
+	}
 }
