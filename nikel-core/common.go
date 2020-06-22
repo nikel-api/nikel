@@ -37,7 +37,7 @@ func sendSuccess(c *gin.Context, data interface{}) {
 func sendEmptySuccess(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"status_code":    http.StatusOK,
-		"status_message": "success",
+		"status_message": "success: results not found",
 		"response":       []struct{}{}},
 	)
 }
