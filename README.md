@@ -1,5 +1,7 @@
 # Nikel API
 
+Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information about the University of Toronto.
+
 ### Documentation
 
 [Nikel API Documentation](https://docs.nikel.ml/docs)
