@@ -11,24 +11,24 @@ import (
 	"math"
 )
 
-// Get{{GenericType}} queries via the {{genericType}} endpoint
-func Get{{GenericType}}(c *gin.Context) {
+// GetParking queries via the parking endpoint
+func GetParking(c *gin.Context) {
 	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt64, 0)
 	limit := query.ParseInt(c.Query("limit"), 1, config.TOPLIMIT, config.DEFAULTLIMIT)
 
 	data := query.AutoQuery(
-		database.DB.{{GenericType}}Data,
+		database.DB.ParkingData,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var {{genericType}} []database.{{GenericTypeSingle}}
-	json.Unmarshal(res, &{{genericType}})
-	if len({{genericType}}) == 0 {
+	var parking []database.Parking
+	json.Unmarshal(res, &parking)
+	if len(parking) == 0 {
 		response.SendEmptySuccess(c)
 	} else {
-		response.SendSuccess(c, {{genericType}})
+		response.SendSuccess(c, parking)
 	}
 }

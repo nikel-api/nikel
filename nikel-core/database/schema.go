@@ -1,11 +1,6 @@
-package main
+package database
 
-import (
-	"github.com/thedevsaddam/gojsonq/v2"
-	"gopkg.in/guregu/null.v4"
-	"os"
-	"path/filepath"
-)
+import "gopkg.in/guregu/null.v4"
 
 // Course represents a course item
 type Course struct {
@@ -220,36 +215,4 @@ type Eval struct {
 		} `json:"lectures"`
 	} `json:"terms"`
 	LastUpdated null.String `json:"last_updated"`
-}
-
-// Database stores Nikel's data
-type Database struct {
-	CoursesData   *gojsonq.JSONQ
-	TextbooksData *gojsonq.JSONQ
-	BuildingsData *gojsonq.JSONQ
-	FoodData      *gojsonq.JSONQ
-	ParkingData   *gojsonq.JSONQ
-	ServicesData  *gojsonq.JSONQ
-	ExamsData     *gojsonq.JSONQ
-	EvalsData     *gojsonq.JSONQ
-}
-
-var database = &Database{}
-
-// loadVals loads JSON data to database
-func loadVals() {
-	pathPrefix := ""
-	wd, _ := os.Getwd()
-	if filepath.Base(wd) == "nikel-core" {
-		pathPrefix = "../"
-	}
-
-	database.CoursesData = gojsonq.New().File(pathPrefix + COURSEPATH).Reset()
-	database.TextbooksData = gojsonq.New().File(pathPrefix + TEXTBOOKPATH).Reset()
-	database.BuildingsData = gojsonq.New().File(pathPrefix + BUILDINGSPATH).Reset()
-	database.FoodData = gojsonq.New().File(pathPrefix + FOODPATH).Reset()
-	database.ParkingData = gojsonq.New().File(pathPrefix + PARKINGPATH).Reset()
-	database.ServicesData = gojsonq.New().File(pathPrefix + SERVICESPATH).Reset()
-	database.ExamsData = gojsonq.New().File(pathPrefix + EXAMSPATH).Reset()
-	database.EvalsData = gojsonq.New().File(pathPrefix + EVALSPATH).Reset()
 }

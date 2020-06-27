@@ -11,24 +11,24 @@ import (
 	"math"
 )
 
-// Get{{GenericType}} queries via the {{genericType}} endpoint
-func Get{{GenericType}}(c *gin.Context) {
+// GetEvals queries via the evals endpoint
+func GetEvals(c *gin.Context) {
 	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt64, 0)
 	limit := query.ParseInt(c.Query("limit"), 1, config.TOPLIMIT, config.DEFAULTLIMIT)
 
 	data := query.AutoQuery(
-		database.DB.{{GenericType}}Data,
+		database.DB.EvalsData,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var {{genericType}} []database.{{GenericTypeSingle}}
-	json.Unmarshal(res, &{{genericType}})
-	if len({{genericType}}) == 0 {
+	var evals []database.Eval
+	json.Unmarshal(res, &evals)
+	if len(evals) == 0 {
 		response.SendEmptySuccess(c)
 	} else {
-		response.SendSuccess(c, {{genericType}})
+		response.SendSuccess(c, evals)
 	}
 }

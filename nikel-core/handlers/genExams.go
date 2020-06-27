@@ -11,24 +11,24 @@ import (
 	"math"
 )
 
-// Get{{GenericType}} queries via the {{genericType}} endpoint
-func Get{{GenericType}}(c *gin.Context) {
+// GetExams queries via the exams endpoint
+func GetExams(c *gin.Context) {
 	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt64, 0)
 	limit := query.ParseInt(c.Query("limit"), 1, config.TOPLIMIT, config.DEFAULTLIMIT)
 
 	data := query.AutoQuery(
-		database.DB.{{GenericType}}Data,
+		database.DB.ExamsData,
 		c.Request.URL.Query(),
 		limit,
 		offset,
 	)
 
 	res, _ := json.Marshal(data)
-	var {{genericType}} []database.{{GenericTypeSingle}}
-	json.Unmarshal(res, &{{genericType}})
-	if len({{genericType}}) == 0 {
+	var exams []database.Exam
+	json.Unmarshal(res, &exams)
+	if len(exams) == 0 {
 		response.SendEmptySuccess(c)
 	} else {
-		response.SendSuccess(c, {{genericType}})
+		response.SendSuccess(c, exams)
 	}
 }

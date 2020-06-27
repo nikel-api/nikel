@@ -1,5 +1,6 @@
-package main
+package config
 
+// contains a variety of constants
 const (
 	COURSEPATH    = "nikel-parser/data/courses.json"
 	TEXTBOOKPATH  = "nikel-parser/data/textbooks.json"

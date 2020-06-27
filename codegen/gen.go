@@ -37,7 +37,7 @@ func main() {
 		data = strings.ReplaceAll(data, "{{GenericTypeSingle}}", nameSingle)
 
 		ioutil.WriteFile(
-			pathPrefix+"nikel-core/gen"+strings.Title(name)+".go",
+			pathPrefix+"nikel-core/handlers/gen"+strings.Title(name)+".go",
 			[]byte(data),
 			0644,
 		)

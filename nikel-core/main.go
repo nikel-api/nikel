@@ -4,16 +4,15 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/newrelic/go-agent/v3/integrations/nrgin"
 	"github.com/newrelic/go-agent/v3/newrelic"
+	"github.com/nikel-api/nikel/nikel-core/handlers"
+	"github.com/nikel-api/nikel/nikel-core/metrics"
+	"github.com/nikel-api/nikel/nikel-core/response"
 	"github.com/ulule/limiter/v3"
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
 	"os"
 	"time"
 )
-
-func init() {
-	loadVals()
-}
 
 func main() {
 	// set ratelimit at 20 req/s
@@ -44,16 +43,16 @@ func main() {
 	}
 
 	// define routes
-	router.GET("api/metrics", getMetrics)
-	router.GET("api/courses", getCourses)
-	router.GET("api/textbooks", getTextbooks)
-	router.GET("api/buildings", getBuildings)
-	router.GET("api/food", getFood)
-	router.GET("api/parking", getParking)
-	router.GET("api/services", getServices)
-	router.GET("api/exams", getExams)
-	router.GET("api/evals", getEvals)
-	router.NoRoute(sendNotFound)
+	router.GET("api/metrics", metrics.GetMetrics)
+	router.GET("api/courses", handlers.GetCourses)
+	router.GET("api/textbooks", handlers.GetTextbooks)
+	router.GET("api/buildings", handlers.GetBuildings)
+	router.GET("api/food", handlers.GetFood)
+	router.GET("api/parking", handlers.GetParking)
+	router.GET("api/services", handlers.GetServices)
+	router.GET("api/exams", handlers.GetExams)
+	router.GET("api/evals", handlers.GetEvals)
+	router.NoRoute(response.SendNotFound)
 
 	// run server
 	err := router.Run()
