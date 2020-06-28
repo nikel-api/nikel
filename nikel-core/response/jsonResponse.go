@@ -16,8 +16,8 @@ func SendSuccess(c *gin.Context, data interface{}) {
 
 // SendEmptySuccess sends successful empty JSON payload
 func SendEmptySuccess(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"status_code":    http.StatusOK,
+	c.JSON(http.StatusNoContent, gin.H{
+		"status_code":    http.StatusNoContent,
 		"status_message": "success: results not found",
 		"response":       []struct{}{}},
 	)
