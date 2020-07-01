@@ -6,6 +6,12 @@ Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information 
 
 [Nikel API Documentation](https://docs.nikel.ml/docs)
 
+### API Wrappers
+
+##### Official
+
+* [nikel-ts (Node.js)](https://www.npmjs.com/package/nikel)
+
 ### Endpoints currently supported
 
 * /courses
