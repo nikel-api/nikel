@@ -1,5 +1,7 @@
 # Nikel API
 
+[![Build Status](https://travis-ci.com/nikel-api/nikel.svg?branch=master)](https://travis-ci.com/nikel-api/nikel)
+
 Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information about the University of Toronto.
 
 ### Documentation
