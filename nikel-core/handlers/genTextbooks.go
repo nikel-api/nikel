@@ -13,7 +13,7 @@ import (
 
 // GetTextbooks queries via the textbooks endpoint
 func GetTextbooks(c *gin.Context) {
-	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt64, 0)
+	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt32, 0)
 	limit := query.ParseInt(c.Query("limit"), 1, config.TOPLIMIT, config.DEFAULTLIMIT)
 
 	data := query.AutoQuery(

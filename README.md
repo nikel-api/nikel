@@ -29,6 +29,8 @@ Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information 
 
 Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
 
+Nikel should work on any 32/64 bit system with go installed.
+
 1. git clone
 ```
 git clone https://github.com/nikel-api/nikel.git
@@ -37,7 +39,7 @@ git clone https://github.com/nikel-api/nikel.git
 ```
 cd nikel/nikel-parser
 ```
-3. update nikel-parser submodule to latest
+3. Update nikel-parser submodule to latest
 ```
 git pull origin master
 ```
@@ -45,11 +47,11 @@ git pull origin master
 ```
 cd ../nikel-core
 ```
-5. build nikel-core
+5. Build nikel-core
 ```
 go build
 ```
-6. run nikel-core
+6. Run nikel-core
 ```
 Windows
 ./nikel-core.exe
@@ -57,6 +59,12 @@ Windows
 Linux and macOS
 ./nikel-core
 ```
+
+7. Optional configuration
+
+* By default, nikel-core should be listening and serving on port 8080. To change the port, modify the `PORT` environment variable.
+* To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
+* To add optional application metrics via New Relic APM, add the environment variable `NEW_RELIC_LICENSE_KEY` along with a license key.
 
 ### Contributing
 
