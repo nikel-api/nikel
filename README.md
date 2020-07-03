@@ -14,6 +14,12 @@ Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information 
 
 * [nikel-ts (Node.js)](https://www.npmjs.com/package/nikel)
 
+##### Unofficial
+
+* [nikel-rs (Rust)](https://crates.io/crates/nikel-rs)
+
+Please feel free to submit a pull request to add your own API wrapper to this list!
+
 ### Endpoints currently supported
 
 * /courses
