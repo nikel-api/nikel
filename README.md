@@ -18,12 +18,16 @@
 </p>
 
 <p align="center">
-  <a href="https://docs.nikel.ml">Documentation</a> •
+  <a href="#documentation">Documentation</a> •
   <a href="#api-wrappers">API Wrappers</a> •
   <a href="#self-hosting">Self Hosting</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
+
+## Documentation
+
+[Nikel API Documentation](https://docs.nikel.ml)
 
 ## API Wrappers
 
