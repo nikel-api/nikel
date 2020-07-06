@@ -8,13 +8,11 @@ import (
 func ParseInt(query string, low, high, def int) int {
 	if query == "" {
 		return def
-	} else {
-		i, err := strconv.ParseInt(query, 10, 64)
-		val := int(i)
-		if err != nil || val < low || val > high {
-			return def
-		} else {
-			return val
-		}
 	}
+	i, err := strconv.ParseInt(query, 10, 64)
+	val := int(i)
+	if err != nil || val < low || val > high {
+		return def
+	}
+	return val
 }

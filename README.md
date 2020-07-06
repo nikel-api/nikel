@@ -15,6 +15,12 @@
   <a href="https://status.nikel.ml/">
     <img alt="API Status" src="https://img.shields.io/uptimerobot/status/m785379986-9f61400de9d1a64fff1b0b51">
   </a>
+  <a href="https://goreportcard.com/report/github.com/nikel-api/nikel">
+    <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/nikel-api/nikel">
+  </a>
+  <a href="https://github.com/nikel-api/nikel/blob/master/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/nikel-api/nikel">
+  </a>
 </p>
 
 <p align="center">
