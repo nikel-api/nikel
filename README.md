@@ -1,31 +1,43 @@
-# Nikel API
+<h1 align="center">
+  <br>
+  <a href="https://docs.nikel.ml"><img src="https://docs.nikel.ml/img/nikel-api-circle.png" alt="Nikel API" width="200"></a>
+  <br>
+  Nikel API
+  <br>
+</h1>
 
-[![Build Status](https://travis-ci.com/nikel-api/nikel.svg?branch=master)](https://travis-ci.com/nikel-api/nikel)
+<h4 align="center">A collection of data APIs for the University of Toronto.</h4>
 
-Nikel (pronunciation: `/'ni:kɛl/`) is a collection of data APIs on information about the University of Toronto.
+<p align="center">
+  <a href="https://travis-ci.com/nikel-api/nikel">
+    <img alt="Build Status" src="https://img.shields.io/travis/nikel-api/nikel">
+  </a>
+  <a href="https://status.nikel.ml/">
+    <img alt="API Status" src="https://img.shields.io/uptimerobot/status/m785379986-9f61400de9d1a64fff1b0b51">
+  </a>
+</p>
 
-### Documentation
+<p align="center">
+  <a href="https://docs.nikel.ml">Documentation</a> •
+  <a href="#api-wrappers">API Wrappers</a> •
+  <a href="#self-hosting">Self Hosting</a> •
+  <a href="#contributing">Contributing</a> •
+  <a href="#license">License</a>
+</p>
 
-[Nikel API Documentation](https://docs.nikel.ml/docs)
+## API Wrappers
 
-### API Wrappers
-
-##### Official
+#### Official
 
 * [nikel-ts (Node.js)](https://www.npmjs.com/package/nikel)
 
-### Endpoints currently supported
+#### Unofficial
 
-* /courses
-* /textbooks
-* /exams
-* /evals
-* /food
-* /services
-* /buildings
-* /parking
+* [nikel-rs (Rust)](https://crates.io/crates/nikel-rs)
 
-### Self Hosting
+Please feel free to submit a pull request to add your own API wrapper to this list!
+
+## Self Hosting
 
 Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
 
@@ -66,7 +78,7 @@ Linux and macOS
 * To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
 * To add optional application metrics via New Relic APM, add the environment variable `NEW_RELIC_LICENSE_KEY` along with a license key.
 
-### Contributing
+## Contributing
 
 For contributing, there are a few things to look out for:
 
@@ -74,3 +86,7 @@ For contributing, there are a few things to look out for:
 * Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't 100% sure
 
 If you find any inconsistencies or parts of code that can be reworked, any pull requests are greatly appreciated.
+
+## License
+
+[MIT](https://github.com/nikel-api/nikel/blob/master/LICENSE)
