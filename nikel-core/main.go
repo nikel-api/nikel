@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/newrelic/go-agent/v3/integrations/nrgin"
 	"github.com/newrelic/go-agent/v3/newrelic"
@@ -11,23 +12,37 @@ import (
 	mgin "github.com/ulule/limiter/v3/drivers/middleware/gin"
 	"github.com/ulule/limiter/v3/drivers/store/memory"
 	"os"
+	"strconv"
 	"time"
 )
 
 func main() {
-	// set ratelimit at 20 req/s
-	ratelimit := limiter.Rate{
-		Period: 1 * time.Second,
-		Limit:  20,
-	}
-
-	rateStore := memory.NewStore()
-	rateInstance := limiter.New(rateStore, ratelimit)
-	rateMiddleware := mgin.NewMiddleware(rateInstance)
-
 	router := gin.Default()
-	router.ForwardedByClientIP = true
-	router.Use(rateMiddleware)
+
+	// set ratelimit
+	ratelimitValueStr := os.Getenv("RATELIMIT")
+	if len(ratelimitValueStr) != 0 {
+		ratelimitValueInt, err := strconv.Atoi(ratelimitValueStr)
+
+		if err != nil {
+			panic(err)
+		}
+
+		if ratelimitValueInt < 1 {
+			panic(fmt.Errorf("nikel-core: invalid ratelimit value %d", ratelimitValueInt))
+		}
+
+		ratelimit := limiter.Rate{
+			Period: 1 * time.Second,
+			Limit:  int64(ratelimitValueInt),
+		}
+
+		rateStore := memory.NewStore()
+		rateInstance := limiter.New(rateStore, ratelimit)
+		rateMiddleware := mgin.NewMiddleware(rateInstance)
+		router.ForwardedByClientIP = true
+		router.Use(rateMiddleware)
+	}
 
 	// new relic apm monitoring
 	newRelicLicense := os.Getenv("NEW_RELIC_LICENSE_KEY")
