@@ -3,8 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/newrelic/go-agent/v3/integrations/nrgin"
-	"github.com/newrelic/go-agent/v3/newrelic"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/nikel-api/nikel/nikel-core/metrics"
 	"github.com/nikel-api/nikel/nikel-core/response"
@@ -42,19 +40,6 @@ func main() {
 		rateMiddleware := mgin.NewMiddleware(rateInstance)
 		router.ForwardedByClientIP = true
 		router.Use(rateMiddleware)
-	}
-
-	// new relic apm monitoring
-	newRelicLicense := os.Getenv("NEW_RELIC_LICENSE_KEY")
-	if len(newRelicLicense) != 0 {
-		app, err := newrelic.NewApplication(
-			newrelic.ConfigAppName("Nikel API"),
-			newrelic.ConfigLicense(newRelicLicense),
-		)
-		if err != nil {
-			panic(err)
-		}
-		router.Use(nrgin.Middleware(app))
 	}
 
 	// define routes
