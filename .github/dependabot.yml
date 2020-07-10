@@ -1,0 +1,8 @@
+# Automatically generate pull requests to update nikel-parser dataset
+
+version: 2
+updates:
+  - package-ecosystem: "gitsubmodule"
+    directory: "/"
+    schedule:
+      interval: "daily"
