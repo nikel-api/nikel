@@ -57,17 +57,17 @@ Nikel should work on any 32/64 bit system with go installed.
 ```
 git clone https://github.com/nikel-api/nikel.git
 ```
-2. cd into nikel-parser submodule
+2. cd into nikel
 ```
-cd nikel/nikel-parser
+cd nikel
 ```
-3. Update nikel-parser submodule to latest
+3. Update submodules
 ```
-git pull origin master
+git submodule update --init
 ```
 4. cd into nikel-core
 ```
-cd ../nikel-core
+cd nikel-core
 ```
 5. Build nikel-core
 ```
