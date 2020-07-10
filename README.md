@@ -13,7 +13,7 @@
     <img alt="Build Status" src="https://img.shields.io/travis/nikel-api/nikel">
   </a>
   <a href="https://status.nikel.ml/">
-    <img alt="API Status" src="https://img.shields.io/uptimerobot/status/m785379986-9f61400de9d1a64fff1b0b51">
+    <img alt="API Status" src="https://img.shields.io/uptimerobot/status/m785541667-14c2f35b7d11487c0874bdd7">
   </a>
   <a href="https://goreportcard.com/report/github.com/nikel-api/nikel">
     <img alt="Go Report Card" src="https://goreportcard.com/badge/github.com/nikel-api/nikel">
