@@ -1,8 +1,8 @@
 version: "3.8" # https://docs.docker.com/compose/compose-file/
 services:
     app:
-      container_name: nikel_core
-      restart: always
-      build: ./
-      ports:
-        - 5000:8080
+        container_name: nikel_core
+        restart: always
+        build: ./
+        ports:
+        - "$PORT:8080"
