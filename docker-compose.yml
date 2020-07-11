@@ -4,5 +4,8 @@ services:
         container_name: nikel_core
         restart: always
         build: ./
+        environment: 
+            GIN_MODE: "$GIN_MODE"
+            RATELIMIT: "$RATELIMIT"
         ports:
-        - "$PORT:8080"
+            - "$PORT:8080"

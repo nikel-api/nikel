@@ -12,4 +12,4 @@ RUN go install -v ./...
 # Set to whatever we're listening on
 EXPOSE 8080
 
-CMD ["go", "run", "nikel-core/main.go"]
+ENTRYPOINT ["nikel-core"]
