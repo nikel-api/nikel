@@ -49,6 +49,37 @@ Please feel free to submit a pull request to add your own API wrapper to this li
 
 ## Self Hosting
 
+Please consult the [configuration](#configuration) section on what environment variables to set.
+
+### Using Docker
+
+##### Deployment via Docker Hub images (recommended)
+
+You can pull Nikel API's prebuilt Docker images from Docker Hub.
+
+[nikelapi/nikel on Docker Hub](https://hub.docker.com/r/nikelapi/nikel)
+
+1. Pull the latest image from Docker Hub:
+```
+docker pull nikelapi/nikel
+```
+
+2. Run image (you can tweak variables accordingly)
+```
+docker run --publish 8080:8080 --detach --name nikel-core nikelapi/nikel:latest
+```
+
+##### Deployment via local Docker compose
+
+Make sure that your docker version supports the docker-compose version displayed in the `docker-compose.yaml` file.
+
+1. Run `docker-compose`
+```
+docker-compose up -d
+```
+
+### Traditional Deployment
+
 Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
 
 Nikel should work on any 32/64 bit system with go installed.
@@ -82,20 +113,11 @@ Linux and macOS
 ./nikel-core
 ```
 
-7. Optional configuration
+## Configuration
 
 * By default, nikel-core should be listening and serving on port 8080. To change the port, modify the `PORT` environment variable.
 * To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
 * To add optional ratelimiting, add the environment variable `RATELIMIT` with a positive integer value representing the number of reqs/s.
-
-### Using Docker
-To run an image via `docker`, do:
-1. Build the image `docker build --tag image_name:1.0 .`
-2. Run the container `docker run --publish 8080:8080 --detach --name my_container image_name:1.0`
-
-To run an image via `docker-compose`, do:
-1. Set environment variable `PORT` that you wish to use
-2. Run `docker-compose up -d --build`
 
 ## Contributing
 
