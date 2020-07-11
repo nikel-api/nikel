@@ -27,6 +27,7 @@
   <a href="#documentation">Documentation</a> •
   <a href="#api-wrappers">API Wrappers</a> •
   <a href="#self-hosting">Self Hosting</a> •
+  <a href="#configuration">Configuration</a> •
   <a href="#contributing">Contributing</a> •
   <a href="#license">License</a>
 </p>
@@ -53,7 +54,7 @@ Please consult the [configuration](#configuration) section on what environment v
 
 ### Using Docker
 
-##### Deployment via Docker Hub images (recommended)
+#### Deployment via Docker Hub images (recommended)
 
 You can pull Nikel API's prebuilt Docker images from Docker Hub.
 
@@ -69,7 +70,7 @@ docker pull nikelapi/nikel
 docker run --publish 8080:8080 --detach --name nikel-core nikelapi/nikel:latest
 ```
 
-##### Deployment via local Docker compose
+#### Deployment via local Docker compose
 
 Make sure that your docker version supports the docker-compose version displayed in the `docker-compose.yaml` file.
 
