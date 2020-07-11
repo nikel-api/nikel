@@ -88,6 +88,15 @@ Linux and macOS
 * To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
 * To add optional ratelimiting, add the environment variable `RATELIMIT` with a positive integer value representing the number of reqs/s.
 
+### Using Docker
+To run an image via `docker`, do:
+1. Build the image `docker build --tag image_name:1.0 .`
+2. Run the container `docker run --publish 8080:8080 --detach --name my_container image_name:1.0`
+
+To run an image via `docker-compose`, do:
+1. Set environment variable `PORT` that you wish to use
+2. Run `docker-compose up -d --build`
+
 ## Contributing
 
 For contributing, there are a few things to look out for:

@@ -1,2 +1,5 @@
 # Jetbrains Specific Configs
 .idea/
+
+# Ignore Linux/Windows binaries
+nikel-core/nikel-core*
