@@ -12,6 +12,9 @@
   <a href="https://travis-ci.com/nikel-api/nikel">
     <img alt="Build Status" src="https://img.shields.io/travis/nikel-api/nikel">
   </a>
+  <a href="https://hub.docker.com/r/nikelapi/nikel">
+    <img alt="Docker Hub Build Status" src="https://img.shields.io/docker/cloud/build/nikelapi/nikel">
+  </a>
   <a href="https://status.nikel.ml/">
     <img alt="API Status" src="https://img.shields.io/uptimerobot/status/m785541667-14c2f35b7d11487c0874bdd7">
   </a>
@@ -57,8 +60,6 @@ Please consult the [configuration](#configuration) section on what environment v
 #### Deployment via Docker Hub images (recommended)
 
 You can pull Nikel API's prebuilt Docker images from Docker Hub.
-
-[nikelapi/nikel on Docker Hub](https://hub.docker.com/r/nikelapi/nikel)
 
 1. Pull the latest image from Docker Hub:
 ```
