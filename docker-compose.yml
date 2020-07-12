@@ -1,11 +1,11 @@
 version: "3.8" # https://docs.docker.com/compose/compose-file/
 services:
-    app:
-        container_name: nikel_core
-        restart: always
-        build: ./
-        environment: 
-            GIN_MODE: "$GIN_MODE"
-            RATELIMIT: "$RATELIMIT"
-        ports:
-            - "$PORT:8080"
+  app:
+    container_name: nikel_core
+    restart: always
+    build: ./
+    environment:
+      GIN_MODE: "$GIN_MODE"
+      RATELIMIT: "$RATELIMIT"
+    ports:
+      - "$PORT:8080"
