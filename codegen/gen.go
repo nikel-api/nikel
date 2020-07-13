@@ -25,6 +25,9 @@ func main() {
 	}
 
 	for _, file := range fileInfos {
+		if filepath.Ext(file.Name()) != ".json" {
+			continue
+		}
 		name := strings.TrimSuffix(file.Name(), filepath.Ext(file.Name()))
 
 		data := string(rawData)
