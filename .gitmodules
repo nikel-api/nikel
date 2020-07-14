@@ -1,3 +1,3 @@
-[submodule "nikel-parser"]
-	path = nikel-parser
-	url = https://github.com/nikel-api/nikel-parser
+[submodule "nikel-datasets"]
+	path = nikel-datasets
+	url = https://github.com/nikel-api/nikel-datasets.git

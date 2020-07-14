@@ -19,7 +19,7 @@ func main() {
 		panic(err)
 	}
 
-	fileInfos, err := ioutil.ReadDir(pathPrefix + "nikel-parser/data")
+	fileInfos, err := ioutil.ReadDir(pathPrefix + "nikel-datasets/data")
 	if err != nil {
 		panic(err)
 	}

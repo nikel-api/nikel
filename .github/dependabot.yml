@@ -1,4 +1,4 @@
-# Automatically generate pull requests to update nikel-parser dataset
+# Automatically generate pull requests to update nikel-datasets
 
 version: 2
 updates:
