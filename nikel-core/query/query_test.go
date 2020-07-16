@@ -1,8 +1,8 @@
-// TODO: AutoQuery Tests
 package query
 
 import (
 	"fmt"
+	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
@@ -26,9 +26,8 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 		testname := fmt.Sprintf("%s", tt.query)
 		t.Run(testname, func(t *testing.T) {
 			prefix, rest := PrefixHandler(tt.query)
-			if prefix != tt.prefix || rest != tt.rest {
-				t.Errorf("got (%s, %s), want (%s, %s)", prefix, rest, tt.prefix, tt.rest)
-			}
+			assert.Equal(t, tt.prefix, prefix)
+			assert.Equal(t, tt.rest, rest)
 		})
 	}
 }
@@ -48,9 +47,7 @@ func TestTypeToOpTableDriven(t *testing.T) {
 		testname := fmt.Sprintf("(%s, %s)", tt.valueType, tt.op)
 		t.Run(testname, func(t *testing.T) {
 			want := TypeToOp(tt.valueType, tt.op)
-			if want != tt.want {
-				t.Errorf("got %s, want %s", want, tt.want)
-			}
+			assert.Equal(t, tt.want, want)
 		})
 	}
 }

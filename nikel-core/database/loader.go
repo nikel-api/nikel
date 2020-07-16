@@ -1,6 +1,7 @@
 package database
 
 import (
+	"fmt"
 	"github.com/nikel-api/nikel/nikel-core/config"
 	"github.com/thedevsaddam/gojsonq/v2"
 	"os"
@@ -11,8 +12,19 @@ import (
 func init() {
 	pathPrefix := ""
 	wd, _ := os.Getwd()
-	if filepath.Base(wd) == "nikel-core" {
-		pathPrefix = "../"
+
+	// travel up the parent folders to find proper directory position
+	steps := 0
+	for filepath.Base(wd) != "nikel" && steps < 5 {
+
+		// exit if travelled up too far
+		if steps == 5 {
+			panic(fmt.Errorf("nikel-core: cannot find folder positions"))
+		}
+
+		pathPrefix += "../"
+		wd = filepath.Dir(wd)
+		steps += 1
 	}
 
 	DB.CoursesData = gojsonq.New().File(pathPrefix + config.COURSEPATH).Reset()
