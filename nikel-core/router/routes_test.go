@@ -2,8 +2,10 @@ package router
 
 import (
 	"encoding/json"
-	"fmt"
+	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/stretchr/testify/assert"
+	"io/ioutil"
 	"math/rand"
 	"net/http"
 	"net/http/httptest"
@@ -24,7 +26,14 @@ func makeRange(min, max int) []int {
 
 // TestLimit tests the limit option
 func TestLimit(t *testing.T) {
-	r := GetRouter()
+
+	// Get rid of all router output
+	gin.SetMode(gin.ReleaseMode)
+	gin.DefaultWriter = ioutil.Discard
+
+	// Get router and only attach courses
+	r := NewRouter()
+	r.Engine.GET("/", handlers.GetCourses)
 
 	// Random seed
 	rand.Seed(time.Now().UnixNano())
@@ -38,10 +47,10 @@ func TestLimit(t *testing.T) {
 		params := url.Values{"limit": []string{strconv.Itoa(limit)}}
 		req, _ := http.NewRequest(
 			"GET",
-			fmt.Sprintf("%s?%s", "/api/courses", params.Encode()),
+			"/?"+params.Encode(),
 			nil,
 		)
-		r.ServeHTTP(w, req)
+		r.Engine.ServeHTTP(w, req)
 
 		assert.Equal(t, 200, w.Code)
 

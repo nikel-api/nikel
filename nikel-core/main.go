@@ -6,10 +6,13 @@ import (
 
 func main() {
 	// get router
-	r := router.GetRouter()
+	r := router.
+		NewRouter().
+		SetRateLimiter().
+		SetRoutes()
 
 	// run server
-	err := r.Run()
+	err := r.Engine.Run()
 	if err != nil {
 		panic(err)
 	}
