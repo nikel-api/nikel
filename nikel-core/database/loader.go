@@ -12,6 +12,8 @@ func init() {
 	pathPrefix := ""
 	wd, _ := os.Getwd()
 
+	// Currently its just a manual mapping.
+	// Need to find a better way in the future.
 	if filepath.Base(wd) == "nikel-core" {
 		pathPrefix = "../"
 	} else if filepath.Base(wd) == "router" {
