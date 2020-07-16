@@ -17,7 +17,7 @@ func init() {
 	steps := 0
 
 	// app folder name is for heroku deployment
-	for filepath.Base(wd) != "nikel" || filepath.Base(wd) != "app" {
+	for filepath.Base(wd) != "nikel" && filepath.Base(wd) != "app" {
 
 		// exit if travelled up too far
 		if steps == 5 {
