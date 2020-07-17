@@ -2,6 +2,7 @@ package database
 
 import (
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/nikel-api/nikel/nikel-core/config"
 	"github.com/nikel-api/nikel/nikel-core/query"
 	"github.com/thedevsaddam/gojsonq/v2"
@@ -11,10 +12,18 @@ import (
 
 var pathPrefix = ""
 
+type decoder struct{}
+
+// Decode is a decode wrapper around jsoniter
+func (d *decoder) Decode(data []byte, v interface{}) error {
+	var json = jsoniter.ConfigCompatibleWithStandardLibrary
+	return json.Unmarshal(data, &v)
+}
+
 // loadFile loads file
 func loadFile(path string) *gojsonq.JSONQ {
 	// Use Reset to force a GC run on raw string data inside struct
-	jq := gojsonq.New().File(pathPrefix + path).Reset()
+	jq := gojsonq.New(gojsonq.SetDecoder(&decoder{})).File(pathPrefix + path).Reset()
 	jq.Macro("interface", query.InterfaceMacro)
 	return jq
 }

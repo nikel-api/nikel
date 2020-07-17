@@ -1,13 +1,15 @@
 package query
 
 import (
-	"encoding/json"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"github.com/thedevsaddam/gojsonq/v2"
 	"net/url"
 	"strconv"
 	"strings"
 )
+
+var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
