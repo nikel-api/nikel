@@ -30,6 +30,7 @@ func TestRateLimiterAllow(t *testing.T) {
 		for {
 			select {
 			case <-done:
+				ticker.Stop()
 				return
 			case <-ticker.C:
 				w := httptest.NewRecorder()
@@ -43,6 +44,7 @@ func TestRateLimiterAllow(t *testing.T) {
 
 	// Run the test for 3 seconds
 	time.Sleep(3 * time.Second)
+	done <- true
 }
 
 // TestRateLimiterBlocked tests if the ratelimiter blocks
