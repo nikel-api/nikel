@@ -22,8 +22,15 @@ func GetExams(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var exams []database.Exam
-	json.Unmarshal(res, &exams)
+
+	err := json.Unmarshal(res, &exams)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(exams) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

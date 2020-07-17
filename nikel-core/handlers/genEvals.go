@@ -22,8 +22,15 @@ func GetEvals(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var evals []database.Eval
-	json.Unmarshal(res, &evals)
+
+	err := json.Unmarshal(res, &evals)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(evals) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

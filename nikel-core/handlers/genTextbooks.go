@@ -22,8 +22,15 @@ func GetTextbooks(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var textbooks []database.Textbook
-	json.Unmarshal(res, &textbooks)
+
+	err := json.Unmarshal(res, &textbooks)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(textbooks) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

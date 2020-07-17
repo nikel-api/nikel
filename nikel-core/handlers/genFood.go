@@ -22,8 +22,15 @@ func GetFood(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var food []database.Food
-	json.Unmarshal(res, &food)
+
+	err := json.Unmarshal(res, &food)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(food) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

@@ -22,8 +22,15 @@ func GetBuildings(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var buildings []database.Building
-	json.Unmarshal(res, &buildings)
+
+	err := json.Unmarshal(res, &buildings)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(buildings) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

@@ -22,8 +22,15 @@ func GetParking(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var parking []database.Parking
-	json.Unmarshal(res, &parking)
+
+	err := json.Unmarshal(res, &parking)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(parking) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

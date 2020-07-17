@@ -31,3 +31,12 @@ func SendNotFound(c *gin.Context) {
 		"response":       []struct{}{}},
 	)
 }
+
+// SendError sends error JSON payload
+func SendError(c *gin.Context) {
+	c.JSON(http.StatusInternalServerError, gin.H{
+		"status_code":    http.StatusInternalServerError,
+		"status_message": "error: internal server error",
+		"response":       []struct{}{}},
+	)
+}

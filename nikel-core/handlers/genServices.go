@@ -22,8 +22,15 @@ func GetServices(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var services []database.Service
-	json.Unmarshal(res, &services)
+
+	err := json.Unmarshal(res, &services)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(services) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

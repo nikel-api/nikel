@@ -22,8 +22,15 @@ func Get{{GenericType}}(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var {{genericType}} []database.{{GenericTypeSingle}}
-	json.Unmarshal(res, &{{genericType}})
+
+	err := json.Unmarshal(res, &{{genericType}})
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len({{genericType}}) == 0 {
 		response.SendEmptySuccess(c)
 	} else {

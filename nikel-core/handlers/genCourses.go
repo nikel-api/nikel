@@ -22,8 +22,15 @@ func GetCourses(c *gin.Context) {
 	)
 
 	res, _ := json.Marshal(data)
+
 	var courses []database.Course
-	json.Unmarshal(res, &courses)
+
+	err := json.Unmarshal(res, &courses)
+	if err != nil {
+		response.SendError(c)
+		return
+	}
+
 	if len(courses) == 0 {
 		response.SendEmptySuccess(c)
 	} else {
