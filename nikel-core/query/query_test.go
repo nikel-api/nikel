@@ -25,7 +25,7 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 	for _, tt := range tests {
 		testname := fmt.Sprintf("%s", tt.query)
 		t.Run(testname, func(t *testing.T) {
-			prefix, rest := PrefixHandler(tt.query)
+			prefix, rest := prefixHandler(tt.query)
 			assert.Equal(t, tt.prefix, prefix)
 			assert.Equal(t, tt.rest, rest)
 		})
@@ -46,7 +46,7 @@ func TestTypeToOpTableDriven(t *testing.T) {
 	for _, tt := range tests {
 		testname := fmt.Sprintf("(%s, %s)", tt.valueType, tt.op)
 		t.Run(testname, func(t *testing.T) {
-			want := TypeToOp(tt.valueType, tt.op)
+			want := typeToOp(tt.valueType, tt.op)
 			assert.Equal(t, tt.want, want)
 		})
 	}

@@ -2,14 +2,14 @@ package config
 
 // contains a variety of constants
 const (
-	COURSEPATH    = "nikel-datasets/data/courses.json"
-	TEXTBOOKPATH  = "nikel-datasets/data/textbooks.json"
-	BUILDINGSPATH = "nikel-datasets/data/buildings.json"
-	FOODPATH      = "nikel-datasets/data/food.json"
-	PARKINGPATH   = "nikel-datasets/data/parking.json"
-	SERVICESPATH  = "nikel-datasets/data/services.json"
-	EXAMSPATH     = "nikel-datasets/data/exams.json"
-	EVALSPATH     = "nikel-datasets/data/evals.json"
-	TOPLIMIT      = 100
-	DEFAULTLIMIT  = 10
+	CoursePath    = "nikel-datasets/data/courses.json"
+	TextbookPath  = "nikel-datasets/data/textbooks.json"
+	BuildingsPath = "nikel-datasets/data/buildings.json"
+	FoodPath      = "nikel-datasets/data/food.json"
+	ParkingPath   = "nikel-datasets/data/parking.json"
+	ServicesPath  = "nikel-datasets/data/services.json"
+	ExamsPath     = "nikel-datasets/data/exams.json"
+	EvalsPath     = "nikel-datasets/data/evals.json"
+	TopLimit      = 100
+	DefaultLimit  = 10
 )

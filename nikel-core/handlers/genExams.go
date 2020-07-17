@@ -13,7 +13,7 @@ import (
 // GetExams queries via the exams endpoint
 func GetExams(c *gin.Context) {
 	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt32, 0)
-	limit := query.ParseInt(c.Query("limit"), 1, config.TOPLIMIT, config.DEFAULTLIMIT)
+	limit := query.ParseInt(c.Query("limit"), 1, config.TopLimit, config.DefaultLimit)
 
 	data := query.AutoQuery(
 		database.DB.ExamsData,

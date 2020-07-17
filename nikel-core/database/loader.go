@@ -3,14 +3,24 @@ package database
 import (
 	"fmt"
 	"github.com/nikel-api/nikel/nikel-core/config"
+	"github.com/nikel-api/nikel/nikel-core/query"
 	"github.com/thedevsaddam/gojsonq/v2"
 	"os"
 	"path/filepath"
 )
 
+var pathPrefix = ""
+
+// loadFile loads file
+func loadFile(path string) *gojsonq.JSONQ {
+	// Use Reset to force a GC run on raw string data inside struct
+	jq := gojsonq.New().File(pathPrefix + path).Reset()
+	jq.Macro("interface", query.InterfaceMacro)
+	return jq
+}
+
 // init loads JSON data to database
 func init() {
-	pathPrefix := ""
 	wd, _ := os.Getwd()
 
 	// travel up the parent folders to find proper directory position
@@ -29,12 +39,12 @@ func init() {
 		steps += 1
 	}
 
-	DB.CoursesData = gojsonq.New().File(pathPrefix + config.COURSEPATH).Reset()
-	DB.TextbooksData = gojsonq.New().File(pathPrefix + config.TEXTBOOKPATH).Reset()
-	DB.BuildingsData = gojsonq.New().File(pathPrefix + config.BUILDINGSPATH).Reset()
-	DB.FoodData = gojsonq.New().File(pathPrefix + config.FOODPATH).Reset()
-	DB.ParkingData = gojsonq.New().File(pathPrefix + config.PARKINGPATH).Reset()
-	DB.ServicesData = gojsonq.New().File(pathPrefix + config.SERVICESPATH).Reset()
-	DB.ExamsData = gojsonq.New().File(pathPrefix + config.EXAMSPATH).Reset()
-	DB.EvalsData = gojsonq.New().File(pathPrefix + config.EVALSPATH).Reset()
+	DB.CoursesData = loadFile(config.CoursePath)
+	DB.TextbooksData = loadFile(config.TextbookPath)
+	DB.BuildingsData = loadFile(config.BuildingsPath)
+	DB.FoodData = loadFile(config.FoodPath)
+	DB.ParkingData = loadFile(config.ParkingPath)
+	DB.ServicesData = loadFile(config.ServicesPath)
+	DB.ExamsData = loadFile(config.ExamsPath)
+	DB.EvalsData = loadFile(config.EvalsPath)
 }
