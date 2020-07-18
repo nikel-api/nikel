@@ -65,6 +65,8 @@ func TestLimit(t *testing.T) {
 			assert.Nil(t, err)
 
 			assert.Equal(t, "success", resp["status_message"])
+
+			// Check if length matches limit value
 			assert.Equal(t, limit, len(resp["response"].([]interface{})))
 		}(limit)
 	}
@@ -86,13 +88,15 @@ func TestOffset(t *testing.T) {
 	// Load courses database
 	coursesData := database.LoadFile(config.CoursePath)
 
-	// Generate shuffled limits from 1-100
+	// Generate shuffled offsets for all course elements
 	offsets := makeRange(0, coursesData.Count()-1)
 	rand.Shuffle(len(offsets), func(i, j int) { offsets[i], offsets[j] = offsets[j], offsets[i] })
 
 	for _, offset := range offsets {
 		go func(offset int) {
+			// Make thread safe copy
 			coursesDataCopy := coursesData.Copy()
+
 			w := httptest.NewRecorder()
 			params := url.Values{"offset": []string{strconv.Itoa(offset)}}
 			req, _ := http.NewRequest(
@@ -109,6 +113,8 @@ func TestOffset(t *testing.T) {
 			assert.Nil(t, err)
 
 			assert.Equal(t, "success", resp["status_message"])
+
+			// Check if offset matches offset in raw data
 			assert.Equal(t,
 				coursesDataCopy.From(fmt.Sprintf("[%d]", offset)).Get().(map[string]interface{})["id"],
 				resp["response"].([]interface{})[0].(map[string]interface{})["id"],
