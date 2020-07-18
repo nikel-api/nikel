@@ -20,8 +20,8 @@ func (d *decoder) Decode(data []byte, v interface{}) error {
 	return json.Unmarshal(data, &v)
 }
 
-// loadFile loads file
-func loadFile(path string) *gojsonq.JSONQ {
+// LoadFile loads file
+func LoadFile(path string) *gojsonq.JSONQ {
 	// Use Reset to force a GC run on raw string data inside struct
 	jq := gojsonq.New(gojsonq.SetDecoder(&decoder{})).File(pathPrefix + path).Reset()
 	jq.Macro("interface", query.InterfaceMacro)
@@ -48,12 +48,12 @@ func init() {
 		steps += 1
 	}
 
-	DB.CoursesData = loadFile(config.CoursePath)
-	DB.TextbooksData = loadFile(config.TextbookPath)
-	DB.BuildingsData = loadFile(config.BuildingsPath)
-	DB.FoodData = loadFile(config.FoodPath)
-	DB.ParkingData = loadFile(config.ParkingPath)
-	DB.ServicesData = loadFile(config.ServicesPath)
-	DB.ExamsData = loadFile(config.ExamsPath)
-	DB.EvalsData = loadFile(config.EvalsPath)
+	DB.CoursesData = LoadFile(config.CoursePath)
+	DB.TextbooksData = LoadFile(config.TextbookPath)
+	DB.BuildingsData = LoadFile(config.BuildingsPath)
+	DB.FoodData = LoadFile(config.FoodPath)
+	DB.ParkingData = LoadFile(config.ParkingPath)
+	DB.ServicesData = LoadFile(config.ServicesPath)
+	DB.ExamsData = LoadFile(config.ExamsPath)
+	DB.EvalsData = LoadFile(config.EvalsPath)
 }
