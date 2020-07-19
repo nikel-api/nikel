@@ -6,6 +6,7 @@ go 1.14
 
 require (
 	github.com/dustin/go-humanize v1.0.0
+	github.com/gin-contrib/cors v1.3.1
 	github.com/gin-gonic/gin v1.6.3
 	github.com/json-iterator/go v1.1.9
 	github.com/stretchr/testify v1.5.1

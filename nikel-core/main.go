@@ -8,6 +8,7 @@ func main() {
 	// get router
 	r := router.
 		NewRouter().
+		SetAllowCors().
 		SetRateLimiter().
 		SetRoutes()
 
