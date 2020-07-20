@@ -9,8 +9,8 @@ func main() {
 	r := router.
 		NewRouter().
 		SetAllowCors().
-		SetRateLimiter().
 		SetLevelDBCache().
+		SetRateLimiter().
 		SetRoutes()
 
 	// run server
