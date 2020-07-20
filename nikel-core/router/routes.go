@@ -9,15 +9,15 @@ import (
 
 // SetRoutes sets the routes
 func (r *Router) SetRoutes() *Router {
-	r.Engine.GET("api/metrics", metrics.GetMetrics)
-	r.Engine.GET("api/courses", handlers.GetCourses)
-	r.Engine.GET("api/textbooks", handlers.GetTextbooks)
-	r.Engine.GET("api/buildings", handlers.GetBuildings)
-	r.Engine.GET("api/food", handlers.GetFood)
-	r.Engine.GET("api/parking", handlers.GetParking)
-	r.Engine.GET("api/services", handlers.GetServices)
-	r.Engine.GET("api/exams", handlers.GetExams)
-	r.Engine.GET("api/evals", handlers.GetEvals)
+	r.Uncached.GET("api/metrics", metrics.GetMetrics)
+	r.Cached.GET("api/courses", handlers.GetCourses)
+	r.Cached.GET("api/textbooks", handlers.GetTextbooks)
+	r.Cached.GET("api/buildings", handlers.GetBuildings)
+	r.Cached.GET("api/food", handlers.GetFood)
+	r.Cached.GET("api/parking", handlers.GetParking)
+	r.Cached.GET("api/services", handlers.GetServices)
+	r.Cached.GET("api/exams", handlers.GetExams)
+	r.Cached.GET("api/evals", handlers.GetEvals)
 	r.Engine.NoRoute(response.SendNotFound)
 
 	fmt.Println("[NIKEL-CORE] All routes initialized.")
