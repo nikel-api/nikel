@@ -36,7 +36,8 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 		}
 	}
 
-	r.Engine.Use(cache.New(cache.Options{
+	// Attach only cached group
+	r.Cached.Use(cache.New(cache.Options{
 		Store: func() *cache.LevelDB {
 			store, err := cache.NewLevelDB("cache")
 			if err != nil {

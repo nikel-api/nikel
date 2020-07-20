@@ -6,12 +6,17 @@ import (
 
 // Router contains bindings for gin's router engine
 type Router struct {
-	Engine *gin.Engine
+	Engine   *gin.Engine
+	Cached   *gin.RouterGroup
+	Uncached *gin.RouterGroup
 }
 
 // NewRouter returns nikel-core's base router
 func NewRouter() *Router {
+	r := gin.Default()
 	return &Router{
-		Engine: gin.Default(),
+		Engine:   r,
+		Cached:   r.Group("/"),
+		Uncached: r.Group("/"),
 	}
 }

@@ -45,7 +45,10 @@ func (r *Router) SetRateLimiter(opt ...int) *Router {
 	rateInstance := limiter.New(rateStore, ratelimit)
 	rateMiddleware := mgin.NewMiddleware(rateInstance)
 	r.Engine.ForwardedByClientIP = true
-	r.Engine.Use(rateMiddleware)
+
+	// Attach both cached and uncached groups
+	r.Cached.Use(rateMiddleware)
+	r.Uncached.Use(rateMiddleware)
 
 	fmt.Printf("[NIKEL-CORE] Rate limit set to %d reqs/s.\n", ratelimitValueInt)
 	return r
