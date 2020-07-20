@@ -8,8 +8,8 @@ func main() {
 	// get router
 	r := router.
 		NewRouter().
-		SetAllowCors().
 		SetLevelDBCache().
+		SetAllowCors().
 		SetRateLimiter().
 		SetRoutes()
 
