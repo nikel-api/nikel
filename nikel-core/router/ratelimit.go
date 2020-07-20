@@ -12,10 +12,10 @@ import (
 
 // SetRateLimiter sets the rate limiter
 func (r *Router) SetRateLimiter(opt ...int) *Router {
-	ratelimitValueStr := os.Getenv("RATELIMIT")
+	ratelimitValueStr := os.Getenv("RATE_LIMIT")
 
 	if len(ratelimitValueStr) == 0 && len(opt) == 0 {
-		fmt.Println("[NIKEL-CORE] Ratelimit not set.")
+		fmt.Println("[NIKEL-CORE] Rate limit not set.")
 		return r
 	}
 
@@ -32,7 +32,7 @@ func (r *Router) SetRateLimiter(opt ...int) *Router {
 		}
 
 		if ratelimitValueInt < 1 {
-			panic(fmt.Errorf("nikel-core: invalid ratelimit value %d", ratelimitValueInt))
+			panic(fmt.Errorf("nikel-core: invalid rate limit value %d", ratelimitValueInt))
 		}
 	}
 
@@ -47,6 +47,6 @@ func (r *Router) SetRateLimiter(opt ...int) *Router {
 	r.Engine.ForwardedByClientIP = true
 	r.Engine.Use(rateMiddleware)
 
-	fmt.Printf("[NIKEL-CORE] Ratelimit set to %d reqs/s.\n", ratelimitValueInt)
+	fmt.Printf("[NIKEL-CORE] Rate limit set to %d reqs/s.\n", ratelimitValueInt)
 	return r
 }

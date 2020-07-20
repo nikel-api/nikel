@@ -6,6 +6,6 @@ services:
     build: ./
     environment:
       GIN_MODE: "$GIN_MODE"
-      RATELIMIT: "$RATELIMIT"
+      RATE_LIMIT: "$RATE_LIMIT"
     ports:
       - "$PORT:8080"

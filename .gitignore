@@ -3,3 +3,6 @@
 
 # Ignore Linux/Windows binaries
 nikel-core/nikel-core*
+
+# Ignore cache folder
+nikel-core/cache

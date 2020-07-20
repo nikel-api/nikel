@@ -119,7 +119,8 @@ Linux and macOS
 
 * By default, nikel-core should be listening and serving on port 8080. To change the port, modify the `PORT` environment variable.
 * To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
-* To add optional ratelimiting, add the environment variable `RATELIMIT` with a positive integer value representing the number of reqs/s.
+* To add optional rate limiting, add the environment variable `RATE_LIMIT` with a positive integer value representing the number of reqs/s.
+* To add optional disk backed cache, add the environment variable `CACHE_EXPIRY` with a positive integer value representing the number seconds to expire.
 
 ## Contributing
 

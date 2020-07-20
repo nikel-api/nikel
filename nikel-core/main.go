@@ -10,6 +10,7 @@ func main() {
 		NewRouter().
 		SetAllowCors().
 		SetRateLimiter().
+		SetLevelDBCache().
 		SetRoutes()
 
 	// run server

@@ -11,13 +11,13 @@ import (
 	"time"
 )
 
-// TestRateLimiterAllow tests if the ratelimiter allows
+// TestRateLimiterAllow tests if the rate limiter allows
 func TestRateLimiterAllow(t *testing.T) {
 	// Get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router, set ratelimit to 20 reqs/s and only attach courses
+	// Get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
 	r.Engine.GET("/", handlers.GetCourses)
 
@@ -47,13 +47,13 @@ func TestRateLimiterAllow(t *testing.T) {
 	done <- true
 }
 
-// TestRateLimiterBlocked tests if the ratelimiter blocks
+// TestRateLimiterBlocked tests if the rate limiter blocks
 func TestRateLimiterBlocked(t *testing.T) {
 	// Get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router, set ratelimit to 20 reqs/s and only attach courses
+	// Get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
 	r.Engine.GET("/", handlers.GetCourses)
 
@@ -78,6 +78,6 @@ func TestRateLimiterBlocked(t *testing.T) {
 		numRequests += 1
 	}
 
-	assert.True(t, ratelimited, "ratelimit should be reached")
+	assert.True(t, ratelimited, "rate limit should be reached")
 	assert.GreaterOrEqual(t, numRequests, 20, "should be at least 20")
 }
