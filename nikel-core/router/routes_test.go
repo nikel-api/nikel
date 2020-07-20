@@ -38,7 +38,7 @@ func TestLimit(t *testing.T) {
 
 	// Get router and only attach courses
 	r := NewRouter()
-	r.Engine.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", handlers.GetCourses)
 
 	// Random seed
 	rand.Seed(time.Now().UnixNano())
@@ -80,7 +80,7 @@ func TestOffset(t *testing.T) {
 
 	// Get router and only attach courses
 	r := NewRouter()
-	r.Engine.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", handlers.GetCourses)
 
 	// Random seed
 	rand.Seed(time.Now().UnixNano())

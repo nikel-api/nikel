@@ -19,7 +19,7 @@ func TestRateLimiterAllow(t *testing.T) {
 
 	// Get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
-	r.Engine.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", handlers.GetCourses)
 
 	// Set ticker to tick at a rate of 15 reqs/s
 	ticker := time.NewTicker(time.Second / 15)
@@ -55,7 +55,7 @@ func TestRateLimiterBlocked(t *testing.T) {
 
 	// Get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
-	r.Engine.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", handlers.GetCourses)
 
 	ratelimited := false
 	numRequests := 0
