@@ -13,7 +13,7 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 	cacheExpiryValueStr := os.Getenv("CACHE_EXPIRY")
 
 	if len(cacheExpiryValueStr) == 0 && len(expires) == 0 {
-		fmt.Println("[NIKEL-CORE] Cache expiry not set.")
+		fmt.Println("[NIKEL-CORE] LevelDB cache not set.")
 		return r
 	}
 
