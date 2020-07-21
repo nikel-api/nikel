@@ -10,7 +10,7 @@ Date: 07/20/2020
 
 Commit ID: 8e960a
 
-AMD Ryzen 3800X on localhost with standard output disabled
+AMD Ryzen 7 3800X on localhost with standard output disabled
 
 | Local Cache | Concurrent Users | Hatch Rate  | Throughput    |
 |-------------|------------------|-------------|---------------|
