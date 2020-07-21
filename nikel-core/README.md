@@ -2,6 +2,23 @@
 
 This README will provide a high-level overview of Nikel-Core's architecture.
 
+### Benchmarks
+
+Benchmark code: [GitHub Gist](https://gist.github.com/darenliang/2caaf2816908d3d95f9e112db1e02929)
+
+Date: 07/20/2020
+
+Commit ID: 8e960a
+
+AMD Ryzen 3800X on localhost with standard output disabled
+
+| Local Cache | Concurrent Users | Hatch Rate  | Throughput    |
+|-------------|------------------|-------------|---------------|
+| Yes         | 10000            | 100 users/s | 2382.5 reqs/s |
+| No          | 10000            | 100 users/s | 1639.6 reqs/s |
+
+Note that benchmark results don't reflect real world performance so take the results with a grain of salt.
+
 ### Web Framework
 
 Nikel-Core is powered by [Gin](https://github.com/gin-gonic/gin), a relatively performant and featureful web framework.
