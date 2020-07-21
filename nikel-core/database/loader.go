@@ -16,8 +16,7 @@ type decoder struct{}
 
 // Decode is a decode wrapper around jsoniter
 func (d *decoder) Decode(data []byte, v interface{}) error {
-	var json = jsoniter.ConfigCompatibleWithStandardLibrary
-	return json.Unmarshal(data, &v)
+	return jsoniter.ConfigFastest.Unmarshal(data, &v)
 }
 
 // LoadFile loads file

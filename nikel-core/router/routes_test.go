@@ -18,7 +18,7 @@ import (
 	"time"
 )
 
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
+var json = jsoniter.ConfigFastest
 
 // makeRange generates a sequence of numbers
 func makeRange(min, max int) []int {

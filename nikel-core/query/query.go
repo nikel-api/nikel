@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var json = jsoniter.ConfigCompatibleWithStandardLibrary
+var json = jsoniter.ConfigFastest
 
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
