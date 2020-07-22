@@ -86,7 +86,7 @@ func TestOffset(t *testing.T) {
 	rand.Seed(time.Now().UnixNano())
 
 	// Load courses database
-	coursesData := database.LoadFile(config.CoursePath)
+	coursesData := database.LoadFile(config.CoursesPath)
 
 	// Generate shuffled offsets for all course elements
 	offsets := makeRange(0, coursesData.Count()-1)

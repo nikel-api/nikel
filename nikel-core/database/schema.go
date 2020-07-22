@@ -216,3 +216,15 @@ type Eval struct {
 	} `json:"terms"`
 	LastUpdated null.String `json:"last_updated"`
 }
+
+// Program represents a program item
+type Program struct {
+	ID          null.String `json:"id"`
+	Name        null.String `json:"name"`
+	Type        null.String `json:"type"`
+	Campus      null.String `json:"campus"`
+	Description null.String `json:"description"`
+	Enrollment  null.String `json:"enrollment"`
+	Completion  null.String `json:"completion"`
+	LastUpdated null.String `json:"last_updated"`
+}

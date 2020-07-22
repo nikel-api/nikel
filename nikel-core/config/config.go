@@ -2,8 +2,9 @@ package config
 
 // contains a variety of constants
 const (
-	CoursePath    = "nikel-datasets/data/courses.json"
-	TextbookPath  = "nikel-datasets/data/textbooks.json"
+	CoursesPath   = "nikel-datasets/data/courses.json"
+	ProgramsPath  = "nikel-datasets/data/programs.json"
+	TextbooksPath = "nikel-datasets/data/textbooks.json"
 	BuildingsPath = "nikel-datasets/data/buildings.json"
 	FoodPath      = "nikel-datasets/data/food.json"
 	ParkingPath   = "nikel-datasets/data/parking.json"

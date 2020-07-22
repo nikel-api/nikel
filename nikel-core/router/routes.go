@@ -10,6 +10,7 @@ import (
 // SetRoutes sets the routes
 func (r *Router) SetRoutes() *Router {
 	r.Cached.GET("api/courses", handlers.GetCourses)
+	r.Cached.GET("api/programs", handlers.GetPrograms)
 	r.Cached.GET("api/textbooks", handlers.GetTextbooks)
 	r.Cached.GET("api/buildings", handlers.GetBuildings)
 	r.Cached.GET("api/food", handlers.GetFood)

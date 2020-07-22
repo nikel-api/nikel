@@ -47,8 +47,9 @@ func init() {
 		steps += 1
 	}
 
-	DB.CoursesData = LoadFile(config.CoursePath)
-	DB.TextbooksData = LoadFile(config.TextbookPath)
+	DB.CoursesData = LoadFile(config.CoursesPath)
+	DB.ProgramsData = LoadFile(config.ProgramsPath)
+	DB.TextbooksData = LoadFile(config.TextbooksPath)
 	DB.BuildingsData = LoadFile(config.BuildingsPath)
 	DB.FoodData = LoadFile(config.FoodPath)
 	DB.ParkingData = LoadFile(config.ParkingPath)
