@@ -2,7 +2,7 @@ package router
 
 import (
 	"fmt"
-	"github.com/olebedev/gin-cache"
+	"github.com/nikel-api/nikel-cache"
 	"os"
 	"strconv"
 	"time"
@@ -47,6 +47,7 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 		}(),
 		Expire:        cacheExpiryValue,
 		Headers:       []string{},
+		StripHeaders:  []string{"X-Ratelimit-Limit", "X-Ratelimit-Remaining", "X-Ratelimit-Reset"},
 		DoNotUseAbort: false,
 	}))
 
