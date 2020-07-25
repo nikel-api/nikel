@@ -23,7 +23,7 @@ Note that benchmark results don't reflect real world performance so take the res
 
 ### Web Framework
 
-Nikel-Core is powered by [Gin](https://github.com/gin-gonic/gin), a relatively performant and featureful web framework.
+Nikel-Core is powered by [Gin](https://github.com/gin-gonic/gin), a performant and featureful web framework.
 
 ### Database
 
@@ -40,6 +40,8 @@ All JSON is marshalled and unmarshalled via [jsoniter](https://github.com/json-i
 ### Caching
 
 Data is cached via an implementation of [LevelDB in Go](https://github.com/syndtr/goleveldb).
+
+Caching can also be backed by memory or BadgerDB.
 
 ### CORS
 

@@ -71,7 +71,7 @@ docker pull nikelapi/nikel
 docker run --publish 8080:8080 --detach --name nikel-core nikelapi/nikel:latest
 ```
 
-#### Deployment via local Docker compose
+#### Deployment via Docker compose
 
 Make sure that your docker version supports the docker-compose version displayed in the `docker-compose.yaml` file.
 
@@ -120,14 +120,15 @@ Linux and macOS
 * By default, nikel-core should be listening and serving on port 8080. To change the port, modify the `PORT` environment variable.
 * To suppress debug logs, add the environment variable `GIN_MODE` with the value `release`.
 * To add optional rate limiting, add the environment variable `RATE_LIMIT` with a positive integer value representing the number of reqs/s.
-* To add optional disk backed cache, add the environment variable `CACHE_EXPIRY` with a positive integer value representing the number seconds to expire.
+* To add optional disk backed cache (using LevelDB), add the environment variable `CACHE_EXPIRY` with a positive integer value representing the number of seconds to expire.
 
 ## Contributing
 
 For contributing, there are a few things to look out for:
 
-* Always use `go fmt` to format code
-* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't 100% sure
+* Always use `go fmt` to format code.
+* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't 100% sure.
+* Please try to make a few tests to test code changes (not required, but is always good).
 
 If you find any inconsistencies or parts of code that can be reworked, any pull requests are greatly appreciated.
 
