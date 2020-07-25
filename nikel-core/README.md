@@ -12,10 +12,12 @@ Commit ID: 8e960a
 
 AMD Ryzen 7 3800X on localhost with standard output disabled
 
-| Local Cache | Concurrent Users | Hatch Rate  | Throughput    |
-|-------------|------------------|-------------|---------------|
-| Yes         | 10000            | 100 users/s | 2382.5 reqs/s |
-| No          | 10000            | 100 users/s | 1639.6 reqs/s |
+| Cache     | Concurrent Users | Hatch Rate  | Throughput    |
+|-----------|------------------|-------------|---------------|
+| In-Memory | 10000            | 100 users/s | 2474.4 reqs/s |
+| LevelDB   | 10000            | 100 users/s | 2382.5 reqs/s |
+| BadgerDB  | 10000            | 100 users/s | 2372.5 reqs/s |
+| None      | 10000            | 100 users/s | 1639.6 reqs/s |
 
 Note that benchmark results don't reflect real world performance so take the results with a grain of salt.
 
