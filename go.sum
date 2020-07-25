@@ -55,8 +55,8 @@ github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421 h1:ZqeYNhU3OH
 github.com/modern-go/concurrent v0.0.0-20180228061459-e0a39a4cb421/go.mod h1:6dJC0mAP4ikYIbvyc7fijjWJddQyLn8Ig3JB5CqoB9Q=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742 h1:Esafd1046DLDQ0W1YjYsBW+p8U2u7vzgW2SQVmlNazg=
 github.com/modern-go/reflect2 v0.0.0-20180701023420-4b7aa43c6742/go.mod h1:bx2lNnkwVCuqBIxFjflWJWanXIb3RllmbCylyMrvgv0=
-github.com/nikel-api/nikel-cache v0.0.0-20200724024001-6302070aea35 h1:qmF6Dj59vK3AwMbAyACk4BtSI+gnUtmkCDWXQ8gnH/g=
-github.com/nikel-api/nikel-cache v0.0.0-20200724024001-6302070aea35/go.mod h1:BG6Azw/hVtJPd4JlED3e650CMZCX/dX5iI2YJ9sThDc=
+github.com/nikel-api/nikel-cache v1.0.0 h1:/qaGWKxFh29LaYpI+L3Rz1s9HyYuySa+ZjZsVLkbmjU=
+github.com/nikel-api/nikel-cache v1.0.0/go.mod h1:BG6Azw/hVtJPd4JlED3e650CMZCX/dX5iI2YJ9sThDc=
 github.com/onsi/ginkgo v1.6.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.7.0/go.mod h1:lLunBs/Ym6LB5Z9jYTR76FiuTmxDTDusOGeTQH+WWjE=
 github.com/onsi/ginkgo v1.10.1 h1:q/mM8GF/n0shIN8SaAZ0V+jnLPzen6WIVZdiwrRlMlo=
