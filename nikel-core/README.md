@@ -6,9 +6,9 @@ This README will provide a high-level overview of Nikel-Core's architecture.
 
 Benchmark code: [GitHub Gist](https://gist.github.com/darenliang/2caaf2816908d3d95f9e112db1e02929)
 
-Date: 07/20/2020
+Date: 07/25/2020
 
-Commit ID: 8e960a
+Commit ID: d20962
 
 AMD Ryzen 7 3800X on localhost with standard output disabled
 
