@@ -61,7 +61,7 @@ func TestLimit(t *testing.T) {
 			assert.Equal(t, 200, w.Code)
 
 			resp := map[string]interface{}{}
-			err := json.Unmarshal([]byte(w.Body.String()), &resp)
+			err := json.Unmarshal(w.Body.Bytes(), &resp)
 			assert.Nil(t, err)
 
 			assert.Equal(t, "success", resp["status_message"])
@@ -109,7 +109,7 @@ func TestOffset(t *testing.T) {
 			assert.Equal(t, 200, w.Code)
 
 			resp := map[string]interface{}{}
-			err := json.Unmarshal([]byte(w.Body.String()), &resp)
+			err := json.Unmarshal(w.Body.Bytes(), &resp)
 			assert.Nil(t, err)
 
 			assert.Equal(t, "success", resp["status_message"])

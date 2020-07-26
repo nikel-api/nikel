@@ -23,8 +23,7 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 		{"test", "default", "test"},
 	}
 	for _, tt := range tests {
-		testname := fmt.Sprintf("%s", tt.query)
-		t.Run(testname, func(t *testing.T) {
+		t.Run(tt.query, func(t *testing.T) {
 			prefix, rest := prefixHandler(tt.query)
 			assert.Equal(t, tt.prefix, prefix)
 			assert.Equal(t, tt.rest, rest)
