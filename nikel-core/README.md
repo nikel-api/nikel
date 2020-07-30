@@ -1,6 +1,6 @@
 # Nikel Core
 
-This README will provide a high-level overview of Nikel-Core's architecture.
+This README provides a high-level overview of Nikel-Core.
 
 ### Benchmarks
 
@@ -39,9 +39,9 @@ All JSON is marshalled and unmarshalled via [jsoniter](https://github.com/json-i
 
 ### Caching
 
-Data is cached via an implementation of [LevelDB in Go](https://github.com/syndtr/goleveldb).
+Data is cached via a Gin cache middleware backed by GoLevelDB. [(nikel-cache)](https://github.com/nikel-api/nikel-cache)
 
-Caching can also be backed by memory or BadgerDB.
+The cache can optionally be backed memory or BadgerDB.
 
 ### CORS
 

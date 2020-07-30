@@ -73,7 +73,7 @@ docker run --publish 8080:8080 --detach --name nikel-core nikelapi/nikel:latest
 
 #### Deployment via Docker compose
 
-Make sure that your docker version supports the docker-compose version displayed in the `docker-compose.yaml` file.
+Make sure your docker version supports the docker-compose version displayed in the `docker-compose.yaml` file.
 
 1. Run `docker-compose`
 ```
