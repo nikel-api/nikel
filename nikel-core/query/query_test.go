@@ -20,6 +20,7 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 		{")test", "endsWith", "test"},
 		{"=test", "=", "test"},
 		{"!test", "!=", "test"},
+		{"~test", "interface", "test"},
 		{"test", "default", "test"},
 	}
 	for _, tt := range tests {
