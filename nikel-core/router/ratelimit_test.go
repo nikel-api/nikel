@@ -42,8 +42,11 @@ func TestRateLimiterAllow(t *testing.T) {
 		}
 	}()
 
-	// Run the test for 3 seconds
-	time.Sleep(3 * time.Second)
+	// Run the test for 1 seconds (a long test is annoying to deal with).
+	// A 1 second test is long enough to catch a 25 reqs/s ratelimit.
+	// Hopefully this is long enough for the requests to ramp up.
+	// If this test time is too short, then maybe we are screwed.
+	time.Sleep(1 * time.Second)
 	done <- true
 }
 

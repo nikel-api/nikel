@@ -122,3 +122,41 @@ func TestOffset(t *testing.T) {
 		}(offset)
 	}
 }
+
+// TestQuery tests a basic query
+func TestQuery(t *testing.T) {
+	// Get rid of all router output
+	gin.SetMode(gin.ReleaseMode)
+	gin.DefaultWriter = ioutil.Discard
+
+	// Get router and only attach courses
+	r := NewRouter()
+	r.Uncached.GET("/", handlers.GetCourses)
+
+	for _, campus := range []string{"St. George", "Mississauga", "Scarborough"} {
+		t.Run(campus, func(t *testing.T) {
+			w := httptest.NewRecorder()
+			params := url.Values{"campus": []string{campus}}
+			req, _ := http.NewRequest(
+				"GET",
+				"/?"+params.Encode(),
+				nil,
+			)
+			r.Engine.ServeHTTP(w, req)
+
+			assert.Equal(t, 200, w.Code)
+
+			resp := map[string]interface{}{}
+
+			err := json.Unmarshal(w.Body.Bytes(), &resp)
+			assert.Nil(t, err)
+
+			assert.Equal(t, "success", resp["status_message"])
+			assert.Len(t, resp["response"], 10)
+
+			for _, item := range resp["response"].([]interface{}) {
+				assert.Equal(t, item.(map[string]interface{})["campus"], campus)
+			}
+		})
+	}
+}
