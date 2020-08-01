@@ -42,7 +42,7 @@ func TestRateLimiterAllow(t *testing.T) {
 		}
 	}()
 
-	// Run the test for 1 seconds (a long test is annoying to deal with).
+	// Run the test for 1 second (a long test is annoying to deal with).
 	// A 1 second test is long enough to catch a 25 reqs/s ratelimit.
 	// Hopefully this is long enough for the requests to ramp up.
 	// If this test time is too short, then maybe we are screwed.
