@@ -34,12 +34,15 @@ func init() {
 	// travel up the parent folders to find proper directory position
 	steps := 0
 
-	// app folder name is for heroku deployment
-	for filepath.Base(wd) != "nikel" && filepath.Base(wd) != "app" {
-
+	for {
 		// exit if travelled up too far
 		if steps == 5 {
 			panic(fmt.Errorf("nikel-core: cannot find folder positions"))
+		}
+
+		// find go.mod file
+		if _, err := os.Stat(fmt.Sprintf("%s/%s", wd, "go.mod")); !os.IsNotExist(err) {
+			break
 		}
 
 		pathPrefix += "../"
