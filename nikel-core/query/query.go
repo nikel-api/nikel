@@ -11,27 +11,32 @@ import (
 
 var json = jsoniter.ConfigFastest
 
+// twoCharPrefixMap represents the map of two char prefixes
+var twoCharPrefixMap = map[string]string{
+	"<=": "<=",
+	">=": ">=",
+}
+
+// oneCharPrefixMap represents the map of one char prefixes
+var oneCharPrefixMap = map[string]string{
+	"<": "<",
+	">": ">",
+	"(": "startsWith",
+	")": "endsWith",
+	"=": "=",
+	"!": "!=",
+	"~": "interface",
+}
+
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
-	if strings.HasPrefix(query, "<=") ||
-		strings.HasPrefix(query, ">=") {
-		return query[:2], query[2:]
-	} else if strings.HasPrefix(query, "<") ||
-		strings.HasPrefix(query, ">") {
-		return query[:1], query[1:]
-	} else if strings.HasPrefix(query, "(") {
-		return "startsWith", query[1:]
-	} else if strings.HasPrefix(query, ")") {
-		return "endsWith", query[1:]
-	} else if strings.HasPrefix(query, "=") {
-		return "=", query[1:]
-	} else if strings.HasPrefix(query, "!") {
-		return "!=", query[1:]
-	} else if strings.HasPrefix(query, "~") {
-		return "interface", query[1:]
-	} else {
-		return "default", query
+	if val, ok := twoCharPrefixMap[query[:2]]; ok {
+		return val, query[2:]
 	}
+	if val, ok := oneCharPrefixMap[query[:1]]; ok {
+		return val, query[1:]
+	}
+	return "default", query
 }
 
 // typeToOp handles differing behavior between strings and non-strings
