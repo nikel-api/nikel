@@ -1,9 +1,9 @@
 package router
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	jsoniter "github.com/json-iterator/go"
 	"github.com/nikel-api/nikel/nikel-core/config"
 	"github.com/nikel-api/nikel/nikel-core/database"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
@@ -17,8 +17,6 @@ import (
 	"testing"
 	"time"
 )
-
-var json = jsoniter.ConfigFastest
 
 // makeRange generates a sequence of numbers
 func makeRange(min, max int) []int {

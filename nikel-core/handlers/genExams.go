@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"encoding/json"
 	"github.com/gin-gonic/gin"
 	"github.com/nikel-api/nikel/nikel-core/config"
 	"github.com/nikel-api/nikel/nikel-core/database"
