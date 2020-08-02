@@ -7,5 +7,6 @@ services:
     environment:
       GIN_MODE: "$GIN_MODE"
       RATE_LIMIT: "$RATE_LIMIT"
+      CACHE_EXPIRY: "CACHE_EXPIRY"
     ports:
       - "$PORT:8080"
