@@ -10,9 +10,8 @@ func ParseInt(query string, low, high, def int) int {
 		return def
 	}
 	i, err := strconv.ParseInt(query, 10, 64)
-	if val := int(i); err != nil || val < low || val > high {
-		return def
-	} else {
+	if val := int(i); err == nil && low <= val && val <= high {
 		return val
 	}
+	return def
 }
