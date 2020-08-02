@@ -5,7 +5,14 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/nikel-api/nikel/nikel-core/response"
 	"runtime"
+	"time"
 )
+
+var startTime time.Time
+
+func init() {
+	startTime = time.Now()
+}
 
 // GetMetrics returns runtime metrics for app health monitoring
 func GetMetrics(c *gin.Context) {
@@ -16,6 +23,8 @@ func GetMetrics(c *gin.Context) {
 		"memory_humanized": humanize.Bytes(memStats.Alloc),
 		"sys":              memStats.Sys,
 		"sys_humanized":    humanize.Bytes(memStats.Sys),
-		"routines":         runtime.NumGoroutine(),
+		"logical_cores":    runtime.NumCPU(),
+		"goroutines":       runtime.NumGoroutine(),
+		"start_time":       humanize.Time(startTime),
 	})
 }
