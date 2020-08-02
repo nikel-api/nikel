@@ -35,8 +35,6 @@ The querying system is based on [Gojsonq](https://github.com/thedevsaddam/gojson
 
 Using [guregu/Null](https://github.com/guregu/null), the queried data is passed through a struct that formats the data in the proper JSON structure.
 
-All JSON is marshalled and unmarshalled via [jsoniter](https://github.com/json-iterator/go) for performance.
-
 ### Caching
 
 Data is cached via a Gin cache middleware backed by GoLevelDB. [(nikel-cache)](https://github.com/nikel-api/nikel-cache)
