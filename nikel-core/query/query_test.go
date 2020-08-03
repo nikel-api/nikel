@@ -22,6 +22,9 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 		{"!test", "!=", "test"},
 		{"~test", "interface", "test"},
 		{"test", "default", "test"},
+		{"<=", "<=", ""},
+		{"<", "<", ""},
+		{"", "default", ""},
 	}
 	for _, tt := range tests {
 		t.Run(tt.query, func(t *testing.T) {

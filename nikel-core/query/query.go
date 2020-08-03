@@ -28,11 +28,16 @@ var oneCharPrefixMap = map[string]string{
 
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
-	if val, ok := twoCharPrefixMap[query[:2]]; ok {
-		return val, query[2:]
+	queryLen := len(query)
+	if queryLen >= 2 {
+		if val, ok := twoCharPrefixMap[query[:2]]; ok {
+			return val, query[2:]
+		}
 	}
-	if val, ok := oneCharPrefixMap[query[:1]]; ok {
-		return val, query[1:]
+	if queryLen >= 1 {
+		if val, ok := oneCharPrefixMap[query[:1]]; ok {
+			return val, query[1:]
+		}
 	}
 	return "default", query
 }
