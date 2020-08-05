@@ -26,6 +26,23 @@ var oneCharPrefixMap = map[string]string{
 	"~": "interface",
 }
 
+// opTypeMap maps the ops to a specific type.
+// This improves the query performance by
+// limiting the number of inferred ops on lookup.
+// This mapping is defined in https://docs.nikel.ml/docs/query_guide.
+var opTypeMap = map[string][]string{
+	"default":    {"string", "numerical"},
+	"=":          {"string", "numerical"},
+	"!=":         {"string", "numerical"},
+	"<":          {"numerical"},
+	"<=":         {"numerical"},
+	">":          {"numerical"},
+	">=":         {"numerical"},
+	"startsWith": {"string"},
+	"endsWith":   {"string"},
+	"interface":  {"string"},
+}
+
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
 	queryLen := len(query)
@@ -42,34 +59,54 @@ func prefixHandler(query string) (string, string) {
 	return "default", query
 }
 
-// typeToOp handles differing behavior between strings and non-strings
-func typeToOp(valueType string, op string) string {
-	switch valueType {
-	case "string":
-		if op == "default" {
-			return "contains"
-		}
-	default:
-		if op == "default" {
-			return "="
-		}
+// whereWrapper wraps jsonq queries so it creates
+// an initial query and orWhere's for subsequent queries.
+// The initial flag is really messed, but its unavoidable
+// unless a struct wrapper is used.
+func whereWrapper(jsonq *gojsonq.JSONQ, initial *bool, query, op string, value interface{}) {
+	if *initial {
+		jsonq.Where(query, op, value)
+		*initial = false
+	} else {
+		jsonq.OrWhere(query, op, value)
 	}
-	return op
 }
 
 // queryBuilder builds queries based on reflected type
 func queryBuilder(jsonq *gojsonq.JSONQ, query, op, value string) {
-	jsonq.Where(query, typeToOp("string", op), value)
-	newOp := typeToOp("notString", op)
-	if v, err := strconv.ParseInt(value, 10, 64); err == nil {
-		jsonq.OrWhere(query, newOp, v)
+	// flag for initial jsonq query
+	initial := true
+
+	// add queries
+	if val, ok := opTypeMap[op]; ok {
+		// loop through possible type mappings
+		for _, t := range val {
+			switch t {
+			case "numerical":
+				// handle default mapping for numerical
+				newOp := op
+				if newOp == "default" {
+					newOp = "="
+				}
+				// handle floats
+				if v, err := strconv.ParseFloat(value, 64); err == nil {
+					whereWrapper(jsonq, &initial, query, newOp, v)
+				}
+				// handle booleans
+				if v, err := strconv.ParseBool(value); err == nil {
+					whereWrapper(jsonq, &initial, query, newOp, v)
+				}
+			case "string":
+				// handle default mapping for string
+				if op == "default" {
+					whereWrapper(jsonq, &initial, query, "contains", value)
+				} else {
+					whereWrapper(jsonq, &initial, query, op, value)
+				}
+			}
+		}
 	}
-	if v, err := strconv.ParseFloat(value, 64); err == nil {
-		jsonq.OrWhere(query, newOp, v)
-	}
-	if v, err := strconv.ParseBool(value); err == nil {
-		jsonq.OrWhere(query, newOp, v)
-	}
+
 	jsonq.More()
 }
 
