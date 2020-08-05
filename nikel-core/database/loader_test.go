@@ -2,22 +2,16 @@ package database
 
 import (
 	"github.com/stretchr/testify/assert"
+	"github.com/thedevsaddam/gojsonq/v2"
+	"reflect"
 	"testing"
 )
 
 // TestLoadDatabase tests database loader
 func TestLoadDatabase(t *testing.T) {
-	for _, val := range []int{
-		DB.BuildingsData.Count(),
-		DB.CoursesData.Count(),
-		DB.EvalsData.Count(),
-		DB.ExamsData.Count(),
-		DB.FoodData.Count(),
-		DB.ParkingData.Count(),
-		DB.ProgramsData.Count(),
-		DB.ServicesData.Count(),
-		DB.TextbooksData.Count(),
-	} {
-		assert.Greater(t, val, 0)
+	// this is some super ugly reflect code, but it's fine since it's only used in test code
+	db := reflect.ValueOf(*DB)
+	for i := 0; i < db.NumField(); i++ {
+		assert.NotZero(t, db.Field(i).Interface().(*gojsonq.JSONQ).Count())
 	}
 }
