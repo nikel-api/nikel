@@ -39,7 +39,7 @@ Using [guregu/Null](https://github.com/guregu/null), the queried data is passed 
 
 Data is cached via a Gin cache middleware backed by GoLevelDB. [(nikel-cache)](https://github.com/nikel-api/nikel-cache)
 
-The cache can optionally be backed memory or BadgerDB.
+The cache can be optionally backed by memory or BadgerDB.
 
 ### CORS
 
