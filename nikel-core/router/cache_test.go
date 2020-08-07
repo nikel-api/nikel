@@ -14,7 +14,6 @@ import (
 
 // TestLevelDBCache tests the LevelDB cache
 func TestLevelDBCache(t *testing.T) {
-
 	// get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard

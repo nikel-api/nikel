@@ -13,7 +13,7 @@ var pathPrefix = ""
 
 // LoadFile loads file
 func LoadFile(path string) *gojsonq.JSONQ {
-	// Use Reset to force a GC run on raw string data inside struct
+	// use Reset to force a GC run on raw string data inside struct
 	jq := gojsonq.New().File(pathPrefix + path).Reset()
 	jq.Macro("interface", query.InterfaceMacro)
 	return jq
