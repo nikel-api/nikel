@@ -48,3 +48,9 @@ Nikel-Core by default allows all origins so that the API is accessible to everyo
 ### Rate Limits
 
 Rate limits are handled in memory via [ulule/limiter](https://github.com/ulule/limiter).
+
+### Process Flow
+
+Request -> Ratelimit* -> Cache* -> Cors* -> Route handler -> Query engine -> Response
+
+*Optional
