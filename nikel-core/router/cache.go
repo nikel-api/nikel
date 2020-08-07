@@ -10,8 +10,10 @@ import (
 
 // SetLevelDBCache sets a LevelDB backed cache
 func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
+	// get env variable
 	cacheExpiryValueStr := os.Getenv("CACHE_EXPIRY")
 
+	// check if env variable is set
 	if len(cacheExpiryValueStr) == 0 && len(expires) == 0 {
 		fmt.Println("[NIKEL-CORE] LevelDB cache not set.")
 		return r
@@ -36,7 +38,7 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 		}
 	}
 
-	// Attach only cached group
+	// attach only cached group
 	r.Cached.Use(cache.New(cache.Options{
 		Store: func() *cache.LevelDB {
 			store, err := cache.NewLevelDB("cache")

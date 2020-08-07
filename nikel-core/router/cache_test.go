@@ -15,21 +15,24 @@ import (
 // TestLevelDBCache tests the LevelDB cache
 func TestLevelDBCache(t *testing.T) {
 
-	// Get rid of all router output
+	// get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router and only attach courses
+	// get router and only attach courses
 	r := NewRouter()
 
+	// setup cache store
 	store, err := cache.NewLevelDB("cache_test")
 	assert.Nil(t, err)
 
+	// attach cache store
 	r.Cached.Use(cache.New(cache.Options{
 		Store: store,
 	}))
 	r.Cached.GET("/", handlers.GetCourses)
 
+	// make two requests
 	for i := 0; i < 2; i++ {
 		w := httptest.NewRecorder()
 		req, _ := http.NewRequest(
@@ -42,12 +45,15 @@ func TestLevelDBCache(t *testing.T) {
 		assert.Equal(t, 200, w.Code)
 
 		if i == 0 {
+			// first should not have a x-gin-cache header defined
 			assert.Equal(t, "", w.Header().Get("x-gin-cache"))
 		} else {
+			// second should have a x-gin-cache header defined
 			assert.NotEqual(t, "", w.Header().Get("x-gin-cache"))
 		}
 	}
 
+	// do necessary cleanup
 	err = store.DB.Close()
 	assert.Nil(t, err)
 

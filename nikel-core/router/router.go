@@ -14,6 +14,10 @@ type Router struct {
 // NewRouter returns nikel-core's base router
 func NewRouter() *Router {
 	r := gin.Default()
+
+	// there are two groups defined
+	// cached has the cache middleware attached
+	// uncached does not
 	return &Router{
 		Engine:   r,
 		Cached:   r.Group("/"),

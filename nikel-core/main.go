@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	// get router
+	// get router and attach middlewares
 	r := router.
 		NewRouter().
 		SetRateLimiter().

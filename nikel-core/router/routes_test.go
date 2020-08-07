@@ -29,23 +29,23 @@ func makeRange(min, max int) []int {
 
 // TestLimit tests the limit option
 func TestLimit(t *testing.T) {
-
-	// Get rid of all router output
+	// get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router and only attach courses
+	// get router and only attach courses
 	r := NewRouter()
 	r.Uncached.GET("/", handlers.GetCourses)
 
-	// Random seed
+	// random seed
 	rand.Seed(time.Now().UnixNano())
 
-	// Generate shuffled limits from 1-100
+	// generate shuffled limits from 1-100
 	limits := makeRange(1, 100)
 	rand.Shuffle(len(limits), func(i, j int) { limits[i], limits[j] = limits[j], limits[i] })
 
 	for _, limit := range limits {
+		// run in goroutines to speed up testing
 		go func(limit int) {
 			w := httptest.NewRecorder()
 			params := url.Values{"limit": []string{strconv.Itoa(limit)}}
@@ -64,7 +64,7 @@ func TestLimit(t *testing.T) {
 
 			assert.Equal(t, "success", resp["status_message"])
 
-			// Check if length matches limit value
+			// check if length matches limit value
 			assert.Equal(t, limit, len(resp["response"].([]interface{})))
 		}(limit)
 	}
@@ -72,27 +72,28 @@ func TestLimit(t *testing.T) {
 
 // TestOffset tests the offset option
 func TestOffset(t *testing.T) {
-	// Get rid of all router output
+	// get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router and only attach courses
+	// get router and only attach courses
 	r := NewRouter()
 	r.Uncached.GET("/", handlers.GetCourses)
 
-	// Random seed
+	// random seed
 	rand.Seed(time.Now().UnixNano())
 
-	// Load courses database
+	// load courses database
 	coursesData := database.LoadFile(config.CoursesPath)
 
-	// Generate shuffled offsets for all course elements
+	// generate shuffled offsets for all course elements
 	offsets := makeRange(0, coursesData.Count()-1)
 	rand.Shuffle(len(offsets), func(i, j int) { offsets[i], offsets[j] = offsets[j], offsets[i] })
 
 	for _, offset := range offsets {
+		// run in goroutines to speed up testing
 		go func(offset int) {
-			// Make thread safe copy
+			// make thread safe copy
 			coursesDataCopy := coursesData.Copy()
 
 			w := httptest.NewRecorder()
@@ -112,7 +113,7 @@ func TestOffset(t *testing.T) {
 
 			assert.Equal(t, "success", resp["status_message"])
 
-			// Check if offset matches offset in raw data
+			// check if offset matches offset in raw data
 			assert.Equal(t,
 				coursesDataCopy.From(fmt.Sprintf("[%d]", offset)).Get().(map[string]interface{})["id"],
 				resp["response"].([]interface{})[0].(map[string]interface{})["id"],
@@ -123,14 +124,16 @@ func TestOffset(t *testing.T) {
 
 // TestQuery tests a basic query
 func TestQuery(t *testing.T) {
-	// Get rid of all router output
+	// get rid of all router output
 	gin.SetMode(gin.ReleaseMode)
 	gin.DefaultWriter = ioutil.Discard
 
-	// Get router and only attach courses
+	// get router and only attach courses
 	r := NewRouter()
 	r.Uncached.GET("/", handlers.GetCourses)
 
+	// test campuses
+	// will like to see more query tests soon
 	for _, campus := range []string{"St. George", "Mississauga", "Scarborough"} {
 		t.Run(campus, func(t *testing.T) {
 			w := httptest.NewRecorder()
@@ -152,6 +155,7 @@ func TestQuery(t *testing.T) {
 			assert.Equal(t, "success", resp["status_message"])
 			assert.Len(t, resp["response"], 10)
 
+			// check that all response values have correct campus value
 			for _, item := range resp["response"].([]interface{}) {
 				assert.Equal(t, item.(map[string]interface{})["campus"], campus)
 			}

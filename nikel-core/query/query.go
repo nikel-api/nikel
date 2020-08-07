@@ -45,17 +45,22 @@ var opTypeMap = map[string][]string{
 
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
+
+	// look up two char prefixes
 	queryLen := len(query)
 	if queryLen >= 2 {
 		if val, ok := twoCharPrefixMap[query[:2]]; ok {
 			return val, query[2:]
 		}
 	}
+
+	// look up one char prefixes
 	if queryLen >= 1 {
 		if val, ok := oneCharPrefixMap[query[:1]]; ok {
 			return val, query[1:]
 		}
 	}
+
 	return "default", query
 }
 
@@ -112,34 +117,50 @@ func queryBuilder(jsonq *gojsonq.JSONQ, query, op, value string) {
 
 // AutoQuery queries url data along with limit and offset information
 func AutoQuery(jsonq *gojsonq.JSONQ, values url.Values, limit, offset int) interface{} {
+	// copy to make thread-safe
 	data := jsonq.Copy()
+
+	// loop through query params
 	for query, value := range values {
+		// filter out limit and offset
 		if query == "limit" || query == "offset" {
 			continue
 		}
+
+		// loop through duplicates
 		for _, el := range value {
+			// handle prefix and separate by op and value
 			op, cleanValue := prefixHandler(el)
+			// build query
 			queryBuilder(data, query, op, cleanValue)
 		}
 	}
+
+	// set limit and offset
 	data.Limit(limit).Offset(offset)
+
+	// get result
 	return data.Get()
 }
 
 // InterfaceMacro matches by interface value,
-// it's slow but it is slightly faster than the regex implementation
 func InterfaceMacro(value interface{}, key interface{}) (bool, error) {
+	// check if string
 	keyString, ok := key.(string)
 
 	if !ok {
 		return false, fmt.Errorf("%v must be a string", key)
 	}
 
+	// marshal interface value to bytes
 	rawBytes, err := json.Marshal(value)
 
 	if err != nil {
 		return false, err
 	}
 
+	// check if substring contains in string (case insensitive)
+	// it's slow but it is slightly faster than the regex implementation
+	// this could be further optimized
 	return strings.Contains(strings.ToLower(string(rawBytes)), strings.ToLower(keyString)), nil
 }

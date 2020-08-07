@@ -8,16 +8,23 @@ import (
 	"time"
 )
 
+// startTime to track boot time
 var startTime time.Time
 
 func init() {
+	// initialize startTime
 	startTime = time.Now()
 }
 
 // GetMetrics returns runtime metrics for app health monitoring
 func GetMetrics(c *gin.Context) {
 	var memStats runtime.MemStats
+
+	// get runtime memory stats
 	runtime.ReadMemStats(&memStats)
+
+	// send successful response
+	// humanize some values because humans are bad at math
 	response.SendSuccess(c, gin.H{
 		"memory":           memStats.Alloc,
 		"memory_humanized": humanize.Bytes(memStats.Alloc),

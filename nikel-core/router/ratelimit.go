@@ -12,8 +12,10 @@ import (
 
 // SetRateLimiter sets the rate limiter
 func (r *Router) SetRateLimiter(opt ...int) *Router {
+	// get env variable
 	ratelimitValueStr := os.Getenv("RATE_LIMIT")
 
+	// check if env variable is set
 	if len(ratelimitValueStr) == 0 && len(opt) == 0 {
 		fmt.Println("[NIKEL-CORE] Rate limit not set.")
 		return r
@@ -46,7 +48,7 @@ func (r *Router) SetRateLimiter(opt ...int) *Router {
 	rateMiddleware := mgin.NewMiddleware(rateInstance)
 	r.Engine.ForwardedByClientIP = true
 
-	// Attach both cached and uncached groups
+	// attach both cached and uncached groups
 	r.Cached.Use(rateMiddleware)
 	r.Uncached.Use(rateMiddleware)
 

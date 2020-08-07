@@ -12,9 +12,11 @@ import (
 
 // GetFood queries via the food endpoint
 func GetFood(c *gin.Context) {
+	// get offset and limit
 	offset := query.ParseInt(c.Query("offset"), 0, math.MaxInt32, 0)
 	limit := query.ParseInt(c.Query("limit"), 1, config.TopLimit, config.DefaultLimit)
 
+	// query data
 	data := query.AutoQuery(
 		database.DB.FoodData,
 		c.Request.URL.Query(),
@@ -22,10 +24,14 @@ func GetFood(c *gin.Context) {
 		offset,
 	)
 
+	// convert data to bytes
+	// this is expensive but reforming the data through an additional unmarshal is necessary
 	res, _ := json.Marshal(data)
 
+	// initialize payload variable
 	var food []database.Food
 
+	// unmarshal on a specific struct defined for this payload
 	err := json.Unmarshal(res, &food)
 	if err != nil {
 		response.SendError(c)
@@ -33,8 +39,10 @@ func GetFood(c *gin.Context) {
 	}
 
 	if len(food) == 0 {
+		// send empty array
 		response.SendEmptySuccess(c)
 	} else {
+		// send payload
 		response.SendSuccess(c, food)
 	}
 }

@@ -7,6 +7,7 @@ import (
 
 // TestPrefixHandlerTableDriven tests all handlers
 func TestPrefixHandlerTableDriven(t *testing.T) {
+	// defined tests table
 	var tests = []struct {
 		query        string
 		prefix, rest string
@@ -25,6 +26,8 @@ func TestPrefixHandlerTableDriven(t *testing.T) {
 		{"<", "<", ""},
 		{"", "default", ""},
 	}
+
+	// run test table
 	for _, tt := range tests {
 		t.Run(tt.query, func(t *testing.T) {
 			prefix, rest := prefixHandler(tt.query)

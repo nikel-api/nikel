@@ -37,11 +37,15 @@ func init() {
 			break
 		}
 
+		// move up a folder and increment steps
 		pathPrefix += "../"
 		wd = filepath.Dir(wd)
 		steps += 1
 	}
 
+	// load database
+	// seriously considering a non hardcoded reflection solution
+	// because this really doesn't look right
 	DB.CoursesData = LoadFile(config.CoursesPath)
 	DB.ProgramsData = LoadFile(config.ProgramsPath)
 	DB.TextbooksData = LoadFile(config.TextbooksPath)
