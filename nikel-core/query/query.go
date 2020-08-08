@@ -45,7 +45,6 @@ var opTypeMap = map[string][]string{
 
 // prefixHandler determines the prefix for each query
 func prefixHandler(query string) (string, string) {
-
 	// look up two char prefixes
 	queryLen := len(query)
 	if queryLen >= 2 {
@@ -152,11 +151,22 @@ func InterfaceMacro(value interface{}, key interface{}) (bool, error) {
 		return false, fmt.Errorf("%v must be a string", key)
 	}
 
+	// if substr is zero then don't bother to continue
+	if len(keyString) == 0 {
+		return true, nil
+	}
+
 	// marshal interface value to bytes
 	rawBytes, err := json.Marshal(value)
 
 	if err != nil {
 		return false, err
+	}
+
+	// if substr is larger than the target string then don't bother to continue
+	// reason why this is needed is because you have to call strings.ToLower before strings.Contains
+	if len(keyString) > len(rawBytes) {
+		return false, nil
 	}
 
 	// check if substring contains in string (case insensitive)
