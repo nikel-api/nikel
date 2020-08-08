@@ -1,6 +1,7 @@
 package config
 
 // contains a variety of constants
+// the paths should be removed in the future
 const (
 	CoursesPath   = "nikel-datasets/data/courses.json"
 	ProgramsPath  = "nikel-datasets/data/programs.json"
