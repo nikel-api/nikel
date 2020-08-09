@@ -2,6 +2,7 @@ package query
 
 import (
 	"strconv"
+	"strings"
 )
 
 // ParseInt is a light wrapper around strconv.ParseInt with bound checks
@@ -20,4 +21,11 @@ func ParseInt(query string, low, high, def int) int {
 	}
 
 	return def
+}
+
+// containsCaseInsensitive is the same as contains but is case insensitive
+// it's slow but it is slightly faster than the regex implementation
+// this could be further optimized
+func containsCaseInsensitive(s, substr string) bool {
+	return strings.Contains(strings.ToLower(s), strings.ToLower(substr))
 }

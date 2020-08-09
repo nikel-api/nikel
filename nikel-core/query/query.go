@@ -6,7 +6,6 @@ import (
 	"github.com/thedevsaddam/gojsonq/v2"
 	"net/url"
 	"strconv"
-	"strings"
 )
 
 // twoCharPrefixMap represents the map of two char prefixes
@@ -92,7 +91,7 @@ func queryBuilder(jsonq *gojsonq.JSONQ, query, op, value string) {
 				if newOp == "default" {
 					newOp = "="
 				}
-				// handle floats
+				// handle floats and integers
 				if v, err := strconv.ParseFloat(value, 64); err == nil {
 					whereWrapper(jsonq, &initial, query, newOp, v)
 				}
@@ -169,8 +168,5 @@ func InterfaceMacro(value interface{}, key interface{}) (bool, error) {
 		return false, nil
 	}
 
-	// check if substring contains in string (case insensitive)
-	// it's slow but it is slightly faster than the regex implementation
-	// this could be further optimized
-	return strings.Contains(strings.ToLower(string(rawBytes)), strings.ToLower(keyString)), nil
+	return containsCaseInsensitive(string(rawBytes), keyString), nil
 }
