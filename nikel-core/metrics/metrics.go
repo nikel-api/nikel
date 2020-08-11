@@ -8,6 +8,20 @@ import (
 	"time"
 )
 
+// Metrics forces deserialization of metrics
+// to be ordered a certain way
+type Metrics struct {
+	Memory          uint64 `json:"memory"`
+	MemoryHumanized string `json:"memory_humanized"`
+	Sys             uint64 `json:"sys"`
+	SysHumanized    string `json:"sys_humanized"`
+	Pause           uint64 `json:"pause"`
+	PauseHumanized  string `json:"pause_humanized"`
+	Goroutines      int    `json:"goroutines"`
+	LogicalCores    int    `json:"logical_cores"`
+	StartTime       string `json:"start_time"`
+}
+
 // startTime to track boot time
 var startTime time.Time
 
@@ -25,13 +39,15 @@ func GetMetrics(c *gin.Context) {
 
 	// send successful response
 	// humanize some values because humans are bad at math
-	response.SendSuccess(c, gin.H{
-		"memory":           memStats.Alloc,
-		"memory_humanized": humanize.Bytes(memStats.Alloc),
-		"sys":              memStats.Sys,
-		"sys_humanized":    humanize.Bytes(memStats.Sys),
-		"logical_cores":    runtime.NumCPU(),
-		"goroutines":       runtime.NumGoroutine(),
-		"start_time":       humanize.Time(startTime),
+	response.SendSuccess(c, Metrics{
+		Memory:          memStats.Alloc,
+		MemoryHumanized: humanize.Bytes(memStats.Alloc),
+		Sys:             memStats.Sys,
+		SysHumanized:    humanize.Bytes(memStats.Sys),
+		Pause:           memStats.PauseTotalNs,
+		PauseHumanized:  time.Duration(memStats.PauseTotalNs).String(),
+		Goroutines:      runtime.NumCPU(),
+		LogicalCores:    runtime.NumGoroutine(),
+		StartTime:       humanize.Time(startTime),
 	})
 }
