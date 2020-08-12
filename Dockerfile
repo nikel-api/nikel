@@ -1,5 +1,5 @@
 # Should be latest stable release
-FROM golang:1.15
+FROM golang:latest
 
 # Setup working directory
 WORKDIR /go/src/app
