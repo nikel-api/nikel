@@ -85,7 +85,7 @@ docker-compose up -d
 
 ### Traditional Deployment
 
-Nikel should work on any 32/64 bit system with go installed (version 1.13+ should work).
+Nikel should work on any 32/64 bit system with go installed (version 1.13+ is required).
 
 1. git clone
 ```
