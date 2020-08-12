@@ -85,9 +85,7 @@ docker-compose up -d
 
 ### Traditional Deployment
 
-Please make sure you have the same go version displayed in the `go.mod` file. It should usually be the latest stable release. If you are unsure which go version you have, use `go version` to find out.
-
-Nikel should work on any 32/64 bit system with go installed.
+Nikel should work on any 32/64 bit system with go installed (version 1.11+ should work).
 
 1. git clone
 ```
@@ -111,11 +109,7 @@ go build
 ```
 6. Run nikel-core
 ```
-Windows
-./nikel-core.exe
-
-Linux and macOS
-./nikel-core
+./nikel-core (add .exe suffix if on Windows)
 ```
 
 ## Configuration
@@ -130,7 +124,7 @@ Linux and macOS
 For contributing, there are a few things to look out for:
 
 * Always use `go fmt` to format code.
-* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't 100% sure.
+* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't sure.
 * Please try to make a few tests to test code changes (not required, but is always good).
 
 If you find any inconsistencies or parts of code that can be reworked, any pull requests are greatly appreciated.

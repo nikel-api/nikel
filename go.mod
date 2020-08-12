@@ -1,8 +1,8 @@
 module github.com/nikel-api/nikel
 
-// +heroku goVersion go1.14
+// +heroku goVersion go1.15
 
-go 1.14
+go 1.13
 
 require (
 	github.com/dustin/go-humanize v1.0.0
