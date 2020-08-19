@@ -1,6 +1,6 @@
 module github.com/nikel-api/nikel
 
-// +heroku goVersion go1.14
+// +heroku goVersion go1.15
 
 go 1.13
 
