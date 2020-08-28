@@ -46,8 +46,8 @@ func GetMetrics(c *gin.Context) {
 		SysHumanized:    humanize.Bytes(memStats.Sys),
 		Pause:           memStats.PauseTotalNs,
 		PauseHumanized:  time.Duration(memStats.PauseTotalNs).String(),
-		Goroutines:      runtime.NumCPU(),
-		LogicalCores:    runtime.NumGoroutine(),
+		Goroutines:      runtime.NumGoroutine(),
+		LogicalCores:    runtime.NumCPU(),
 		StartTime:       humanize.Time(startTime),
 	})
 }
