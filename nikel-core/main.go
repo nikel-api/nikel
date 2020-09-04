@@ -11,6 +11,7 @@ func main() {
 		SetRateLimiter().
 		SetLevelDBCache().
 		SetAllowCors().
+		SetGZip().
 		SetRoutes()
 
 	// run server
