@@ -45,12 +45,16 @@ The cache can be optionally backed by memory or BadgerDB.
 
 Nikel-Core by default allows all origins so that the API is accessible to everyone.
 
+### Gzip
+
+Nikel-Core gzips all responses via gzip for smaller payload sizes.
+
 ### Rate Limits
 
 Rate limits are handled in memory via [ulule/limiter](https://github.com/ulule/limiter).
 
 ### Process Flow
 
-Request -> Ratelimit* -> Cache* -> Cors* -> Route handler -> Query engine -> Response
+Request -> Ratelimit* -> Cache* -> Cors* -> Gzip* -> Route handler -> Query engine -> Response
 
 *Optional

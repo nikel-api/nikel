@@ -5,8 +5,8 @@ import (
 	"github.com/gin-contrib/gzip"
 )
 
-// SetGZip gzips all api responses
-func (r *Router) SetGZip() *Router {
+// SetGzip gzips all api responses
+func (r *Router) SetGzip() *Router {
 	// Attach both cached and uncached groups
 	r.Cached.Use(gzip.Gzip(gzip.DefaultCompression))
 	r.Uncached.Use(gzip.Gzip(gzip.DefaultCompression))
