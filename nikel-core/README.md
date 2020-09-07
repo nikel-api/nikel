@@ -47,7 +47,7 @@ Nikel-Core by default allows all origins so that the API is accessible to everyo
 
 ### Gzip
 
-Nikel-Core gzips all responses via gzip for smaller payload sizes.
+Nikel-Core gzips all responses for smaller payload sizes.
 
 ### Rate Limits
 
