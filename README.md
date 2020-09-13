@@ -123,8 +123,8 @@ go build
 
 For contributing, there are a few things to look out for:
 
-* Always use `go fmt` to format code.
-* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write docstrings if you aren't sure.
+* Use `go fmt github.com/nikel-api/nikel/...` to format code.
+* Consult the article [Godoc: documenting Go code](https://blog.golang.org/godoc) on how to write comments if you aren't sure.
 * Use `go test github.com/nikel-api/nikel/... -v` to run all tests.
 * Please try to make a few tests to test code changes (not required, but is always good).
 
