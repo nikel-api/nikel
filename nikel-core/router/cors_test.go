@@ -20,20 +20,32 @@ func TestCors(t *testing.T) {
 	r := NewRouter().SetAllowCors()
 	r.Uncached.GET("/", handlers.GetCourses)
 
-	w := httptest.NewRecorder()
 	req, _ := http.NewRequest(
 		"GET",
 		"/",
 		nil,
 	)
 
-	// send request from foo.com
-	req.Header.Set("Origin", "foo.com")
+	t.Run("WithoutOrigin", func(t *testing.T) {
+		w := httptest.NewRecorder()
+		r.Engine.ServeHTTP(w, req)
 
-	r.Engine.ServeHTTP(w, req)
+		assert.Equal(t, 200, w.Code)
 
-	assert.Equal(t, 200, w.Code)
+		// Access-Control-Allow-Origin header should empty
+		assert.Empty(t, w.Header().Get("Access-Control-Allow-Origin"))
+	})
 
-	// Access-Control-Allow-Origin header should be *
-	assert.Equal(t, "*", w.Header().Get("Access-Control-Allow-Origin"))
+	t.Run("WithOrigin", func(t *testing.T) {
+		// send request from foo.com
+		req.Header.Set("Origin", "foo.com")
+
+		w := httptest.NewRecorder()
+		r.Engine.ServeHTTP(w, req)
+
+		assert.Equal(t, 200, w.Code)
+
+		// Access-Control-Allow-Origin header should be *
+		assert.Equal(t, "*", w.Header().Get("Access-Control-Allow-Origin"))
+	})
 }
