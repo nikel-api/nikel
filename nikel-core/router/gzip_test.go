@@ -30,7 +30,7 @@ func TestGzip(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.Engine.ServeHTTP(w, req)
 
-		assert.Equal(t, 200, w.Code)
+		assert.Equal(t, http.StatusOK, w.Code)
 
 		// Content-Encoding header should be empty
 		assert.Empty(t, w.Header().Get("Content-Encoding"))
@@ -43,7 +43,7 @@ func TestGzip(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.Engine.ServeHTTP(w, req)
 
-		assert.Equal(t, 200, w.Code)
+		assert.Equal(t, http.StatusOK, w.Code)
 
 		// Content-Encoding header should be gzip
 		assert.Equal(t, "gzip", w.Header().Get("Content-Encoding"))

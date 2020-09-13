@@ -30,7 +30,7 @@ func TestCors(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.Engine.ServeHTTP(w, req)
 
-		assert.Equal(t, 200, w.Code)
+		assert.Equal(t, http.StatusOK, w.Code)
 
 		// Access-Control-Allow-Origin header should empty
 		assert.Empty(t, w.Header().Get("Access-Control-Allow-Origin"))
@@ -43,7 +43,7 @@ func TestCors(t *testing.T) {
 		w := httptest.NewRecorder()
 		r.Engine.ServeHTTP(w, req)
 
-		assert.Equal(t, 200, w.Code)
+		assert.Equal(t, http.StatusOK, w.Code)
 
 		// Access-Control-Allow-Origin header should be *
 		assert.Equal(t, "*", w.Header().Get("Access-Control-Allow-Origin"))

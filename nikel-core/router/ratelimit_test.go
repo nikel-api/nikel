@@ -37,7 +37,7 @@ func TestRateLimiterAllow(t *testing.T) {
 				req, _ := http.NewRequest("GET", "/", nil)
 				r.Engine.ServeHTTP(w, req)
 
-				assert.Equal(t, w.Code, http.StatusOK)
+				assert.Equal(t, http.StatusOK, w.Code)
 			}
 		}
 	}()
@@ -79,8 +79,8 @@ func TestRateLimiterBlocked(t *testing.T) {
 
 		// if not 429, the then response should be OK
 		// if not, then there's something really bad going on
-		assert.Equal(t, w.Code, http.StatusOK)
-		numRequests += 1
+		assert.Equal(t, http.StatusOK, w.Code)
+		numRequests++
 	}
 
 	assert.True(t, ratelimited, "rate limit should be reached")

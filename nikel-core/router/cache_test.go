@@ -41,14 +41,14 @@ func TestLevelDBCache(t *testing.T) {
 		)
 		r.Engine.ServeHTTP(w, req)
 
-		assert.Equal(t, 200, w.Code)
+		assert.Equal(t, http.StatusOK, w.Code)
 
 		if i == 0 {
 			// first should not have a x-gin-cache header defined
-			assert.Equal(t, "", w.Header().Get("x-gin-cache"))
+			assert.Empty(t, w.Header().Get("x-gin-cache"))
 		} else {
 			// second should have a x-gin-cache header defined
-			assert.NotEqual(t, "", w.Header().Get("x-gin-cache"))
+			assert.NotEmpty(t, w.Header().Get("x-gin-cache"))
 		}
 	}
 
