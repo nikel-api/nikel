@@ -40,7 +40,7 @@ func init() {
 		// move up a folder and increment steps
 		pathPrefix += "../"
 		wd = filepath.Dir(wd)
-		steps += 1
+		steps++
 	}
 
 	// load database

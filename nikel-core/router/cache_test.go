@@ -2,7 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
-	cache "github.com/nikel-api/nikel-cache"
+	"github.com/nikel-api/nikel-cache"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
