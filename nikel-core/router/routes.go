@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"github.com/nikel-api/nikel/nikel-core/config"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/nikel-api/nikel/nikel-core/metrics"
 	"github.com/nikel-api/nikel/nikel-core/response"
@@ -19,6 +20,12 @@ func (r *Router) SetRoutes() *Router {
 	r.Cached.GET("api/services", handlers.GetServices)
 	r.Cached.GET("api/exams", handlers.GetExams)
 	r.Cached.GET("api/evals", handlers.GetEvals)
+
+	// support favicon
+	r.Cached.StaticFile(
+		"favicon.ico",
+		config.PathPrefix+config.FaviconPath,
+	)
 
 	// dispatch non-queryable routes to uncached engine
 	r.Uncached.GET("api/metrics", metrics.GetMetrics)
