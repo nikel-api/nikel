@@ -23,6 +23,7 @@ const (
 	DefaultLimit  = 10
 )
 
+// PathPrefix indicates the root project location
 var PathPrefix = ""
 
 // init calculates PathPrefix
