@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+	"go.uber.org/atomic"
 	"os"
 	"path/filepath"
 )
@@ -19,12 +20,16 @@ const (
 	ExamsPath     = "nikel-datasets/data/exams.json"
 	EvalsPath     = "nikel-datasets/data/evals.json"
 	FaviconPath   = "nikel-core/media/favicon.ico"
+	CachePath     = "cache"
 	TopLimit      = 100
 	DefaultLimit  = 10
 )
 
 // PathPrefix indicates the root project location
 var PathPrefix = ""
+
+// CacheFlag indicates if cache is enabled
+var CacheFlag = atomic.NewBool(false)
 
 // init calculates PathPrefix
 func init() {

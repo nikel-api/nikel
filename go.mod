@@ -13,5 +13,6 @@ require (
 	github.com/stretchr/testify v1.6.1
 	github.com/thedevsaddam/gojsonq/v2 v2.5.2
 	github.com/ulule/limiter/v3 v3.5.0
+	go.uber.org/atomic v1.7.0
 	gopkg.in/guregu/null.v4 v4.0.0
 )

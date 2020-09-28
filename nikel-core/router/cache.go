@@ -3,6 +3,7 @@ package router
 import (
 	"fmt"
 	"github.com/nikel-api/nikel-cache"
+	"github.com/nikel-api/nikel/nikel-core/config"
 	"os"
 	"strconv"
 	"time"
@@ -41,7 +42,7 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 	// attach only cached group
 	r.Cached.Use(cache.New(cache.Options{
 		Store: func() *cache.LevelDB {
-			store, err := cache.NewLevelDB("cache")
+			store, err := cache.NewLevelDB(config.CachePath)
 			if err != nil {
 				panic(err)
 			}
@@ -58,6 +59,9 @@ func (r *Router) SetLevelDBCache(expires ...time.Duration) *Router {
 	} else {
 		fmt.Printf("[NIKEL-CORE] Set LevelDB cache to expire after %d seconds.\n", cacheExpiryValue/time.Second)
 	}
+
+	// set CacheFlag to true
+	config.CacheFlag.Store(true)
 
 	return r
 }
