@@ -51,6 +51,7 @@
 #### Unofficial
 
 * [nikel-rs (Rust)](https://crates.io/crates/nikel-rs)
+* [nikel-py (Python)](https://pypi.org/project/nikel-py/)
 
 Please feel free to submit a pull request to add your own API wrapper to this list!
 
