@@ -35,7 +35,9 @@ func TestLimit(t *testing.T) {
 
 	// get router and only attach courses
 	r := NewRouter()
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	// random seed
 	rand.Seed(time.Now().UnixNano())
@@ -78,7 +80,9 @@ func TestOffset(t *testing.T) {
 
 	// get router and only attach courses
 	r := NewRouter()
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	// random seed
 	rand.Seed(time.Now().UnixNano())
@@ -130,7 +134,9 @@ func TestQuery(t *testing.T) {
 
 	// get router and only attach courses
 	r := NewRouter()
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	// test campuses
 	// will like to see more query tests soon

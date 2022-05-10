@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/nikel-core/database"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -19,7 +20,9 @@ func TestRateLimiterAllow(t *testing.T) {
 
 	// get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	// set ticker to tick at a rate of 15 reqs/s
 	ticker := time.NewTicker(time.Second / 15)
@@ -58,7 +61,9 @@ func TestRateLimiterBlocked(t *testing.T) {
 
 	// get router, set rate limit to 20 reqs/s and only attach courses
 	r := NewRouter().SetRateLimiter(20)
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	ratelimited := false
 	numRequests := 0

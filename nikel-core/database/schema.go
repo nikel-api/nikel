@@ -2,6 +2,11 @@ package database
 
 import "gopkg.in/guregu/null.v4"
 
+// Schema is an interface for all schemas
+type Schema interface {
+	Course | Textbook | Building | Food | Parking | Service | Exam | Eval | Program
+}
+
 // Course represents a course item
 type Course struct {
 	ID                         null.String `json:"id"`

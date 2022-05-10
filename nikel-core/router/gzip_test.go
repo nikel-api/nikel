@@ -2,6 +2,7 @@ package router
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/nikel-api/nikel/nikel-core/database"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -18,7 +19,9 @@ func TestGzip(t *testing.T) {
 
 	// get router and only attach courses
 	r := NewRouter().SetGzip()
-	r.Uncached.GET("/", handlers.GetCourses)
+	r.Uncached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	req, _ := http.NewRequest(
 		"GET",

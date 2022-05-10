@@ -3,6 +3,7 @@ package router
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/nikel-api/nikel-cache"
+	"github.com/nikel-api/nikel/nikel-core/database"
 	"github.com/nikel-api/nikel/nikel-core/handlers"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
@@ -29,7 +30,9 @@ func TestLevelDBCache(t *testing.T) {
 	r.Cached.Use(cache.New(cache.Options{
 		Store: store,
 	}))
-	r.Cached.GET("/", handlers.GetCourses)
+	r.Cached.GET("/", func(c *gin.Context) {
+		handlers.Get[database.Course](c, database.DB.CoursesData)
+	})
 
 	// make two requests
 	for i := 0; i < 2; i++ {
