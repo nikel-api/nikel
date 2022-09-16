@@ -9,7 +9,7 @@ processes = []
   CACHE_EXPIRY = "0"
   GIN_MODE = "release"
   RATE_LIMIT = "100"
-  GOMEMLIMIT = "256MiB"
+  GOMEMLIMIT = "200MiB"
 
 [experimental]
   allowed_public_ports = []
